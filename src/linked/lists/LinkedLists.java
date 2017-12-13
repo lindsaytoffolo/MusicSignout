@@ -46,7 +46,7 @@ public class LinkedLists extends Node{
         
     }
     
-    public void removes(int index){
+    public void remove(int index){
         
     }
 }
