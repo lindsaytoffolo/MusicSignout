@@ -9,7 +9,7 @@ package linked.lists;
  *
  * @author 072584980
  */
-public class LinkedLists {
+public class LinkedLists extends Node{
 
     /**
      * @param args the command line arguments
@@ -17,5 +17,36 @@ public class LinkedLists {
     public static void main(String[] args) {
         // TODO code application logic here
     }
+
+    public LinkedLists(Object insert) {
+        super(insert);
+    }
     
+    public Node get(int i){
+        
+    }
+    
+    public int getSize(){
+        
+    }
+    
+    public String toString(){
+        
+    }
+    
+    public void add(Node n){
+        
+    }
+    
+    public void add(Node n, int index){
+        
+    }
+    
+    public void remove(Node n){
+        
+    }
+    
+    public void removes(int index){
+        
+    }
 }
