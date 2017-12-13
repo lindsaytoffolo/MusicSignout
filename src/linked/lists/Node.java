@@ -9,7 +9,7 @@ package linked.lists;
  *
  * @author 072584980
  */
-public class Node<I> implements Comparable<Node> {
+public class Node<I extends Comparable<I>> implements Comparable<Node<I>> {
 
     private I item = null;
     private Node<I> next = null;
@@ -53,7 +53,7 @@ public class Node<I> implements Comparable<Node> {
         this.prev = item;
     }
 
-    public int compareTo(Node o) {
- 
+    public int compareTo(Node<I> o) {
+         return item.compareTo(o.item);
     }
 }
