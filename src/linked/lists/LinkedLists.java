@@ -8,9 +8,9 @@ package linked.lists;
 /**
  *
  * @author 072584980
- */
-public class LinkedLists extends Node{
-    
+ */        
+public class LinkedLists {
+
     private Node head = null;
     private Node tail = null;
 
@@ -21,10 +21,10 @@ public class LinkedLists extends Node{
         // TODO code application logic here
     }
 
-    public LinkedLists(Object insert) {
-        super(insert);
+    public LinkedLists() {
+     
     }
-    
+
     public Node get(int pos){
         Node n = head;
         for(int i = 0; i<pos; i++){
@@ -53,20 +53,42 @@ public class LinkedLists extends Node{
         }
         return patients;
     }
-    
-    public void add(Node n){
-        
+
+    public void add(Patient p) {
+        Node n = new Node<>(p);
+        if (head == null) {
+            head = n;
+            tail = n;
+        } else {
+            n.setPrev(tail);
+            tail.setNext(n);
+            tail = n;
+        }
     }
-    
-    public void add(Node n, int index){
-        
+
+    public void add(Patient p, int index) {
+        Node n = new Node<>(p);
+        if (index == getSize() - 1) {
+            add(p);
+        } else if (index == 0) {
+            n.setNext(head);
+            head.setPrev(n);
+            head = n;
+        } else {
+            Node prev = get(index - 1);
+            Node next = get(index);
+            n.setPrev(prev);
+            n.setNext(next);
+            prev.setNext(n);
+            next.setPrev(n);
+        }
     }
-    
-    public void remove(Node n){
-        
+
+    public void remove(Patient p) {
+
     }
-    
-    public void removes(int index){
-        
+
+    public void remove(int index) {
+
     }
 }
