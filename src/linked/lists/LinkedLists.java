@@ -79,7 +79,11 @@ public class LinkedLists {
         Node n = new Node<>(p);
         if (index == getSize() - 1) {
             add(p);
-        } else if (index == 0) {
+        } 
+        else if (index >= getSize()){
+            throw new IndexOutOfBoundsException();
+        }
+        else if (index == 0) {
             n.setNext(head);
             head.setPrev(n);
             head = n;
@@ -92,6 +96,25 @@ public class LinkedLists {
             next.setPrev(n);
         }
     }
+    
+    public void add(LinkedLists list, int index){
+        Node prev = get(index - 1);
+        Node next = get(index);
+        if (head == null){
+            head = list.getHead();
+            tail = list.getTail();
+        }
+        else if (list.head == null){
+            return;
+        }
+        else if (index >= getSize()){
+            throw new IndexOutOfBoundsException();
+        }
+        else if (index == 0){
+            head = list.getHead();
+        }
+        
+    }
 
     public void remove(Patient p) {
 
@@ -99,5 +122,33 @@ public class LinkedLists {
 
     public void remove(int index) {
 
+    }
+
+    /**
+     * @return the head
+     */
+    public Node getHead() {
+        return head;
+    }
+
+    /**
+     * @param head the head to set
+     */
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
+    /**
+     * @return the tail
+     */
+    public Node getTail() {
+        return tail;
+    }
+
+    /**
+     * @param tail the tail to set
+     */
+    public void setTail(Node tail) {
+        this.tail = tail;
     }
 }
