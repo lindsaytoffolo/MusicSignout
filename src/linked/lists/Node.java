@@ -16,28 +16,44 @@ public class Node<I extends Comparable<I>> implements Comparable<Node<I>> {
     private Node<I> next = null;
     private Node<I> prev = null;
 
+    /**
+     * Create a node with the given information
+     * @param info the information to be stored in the node
+     * @param next the next node in the list
+     * @param prev the previous node in the list
+     */
     public Node(I info, Node<I> next, Node<I> prev) {
         item = info;
         this.next = next;
         this.prev = prev;
     }
 
+    /**
+     * Create a node with the given information
+     * @param info the information to be stored in the node
+     */
     public Node(I info) {
         this(info, null, null);
     }
 
+    /**
+     * Create a node with the given information
+     * @param info the information to be stored in the node
+     * @param next the next node in the list
+     */
     public Node(I info, Node<I> next) {
         this(info, next, null);
     }
 
     /**
-     * @return the item
+     * @return the item contained in the node
      */
     public I getItem() {
         return item;
     }
 
     /**
+     * set the information in the node to something else
      * @param item the item to set
      */
     public void setItem(I item) {
@@ -45,13 +61,14 @@ public class Node<I extends Comparable<I>> implements Comparable<Node<I>> {
     }
 
     /**
-     * @return the next
+     * @return the next node
      */
     public Node<I> getNext() {
         return next;
     }
 
     /**
+     * link a different node as the next node
      * @param next the next to set
      */
     public void setNext(Node<I> next) {
@@ -59,14 +76,15 @@ public class Node<I extends Comparable<I>> implements Comparable<Node<I>> {
     }
 
     /**
-     * @return the prev
+     * @return the previous node
      */
     public Node<I> getPrev() {
         return prev;
     }
 
     /**
-     * @param prev the prev to set
+     * link a different node as the previous node
+     * @param prev the previous node
      */
     public void setPrev(Node<I> prev) {
         this.prev = prev;

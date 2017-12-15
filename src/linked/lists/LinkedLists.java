@@ -54,6 +54,10 @@ public class LinkedLists {
         return patients;
     }
 
+    /**
+     * add a patient to the end of a linked list
+     * @param p the patient to be added
+     */
     public void add(Patient p) {
         Node n = new Node<>(p);
         if (head == null) {
@@ -66,6 +70,11 @@ public class LinkedLists {
         }
     }
 
+    /**
+     * add a patient to a linked list at a set spot
+     * @param p the patient to be added 
+     * @param index the spot to add the patient (first spot in linked list is index 0)
+     */
     public void add(Patient p, int index) {
         Node n = new Node<>(p);
         if (index == getSize() - 1) {
