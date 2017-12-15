@@ -18,7 +18,16 @@ public class LinkedLists {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        LinkedLists bloop = new LinkedLists();
+        //System.out.println(bloop.getSize());
+        Patient p = new Patient("Billy","Bob",2);
+        Patient q = new Patient("Ferguson","Johnny",72);
+        Patient s = new Patient("Amanda","Vasily",-500);
+        bloop.add(p);
+        bloop.add(q);
+        bloop.add(s,2);
+        System.out.println(bloop.toString());
+        System.out.println(bloop.getSize());
     }
 
     public LinkedLists() {
