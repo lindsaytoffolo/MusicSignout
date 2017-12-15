@@ -25,7 +25,7 @@ public class LinkedLists {
         Patient s = new Patient("Amanda","Vasily",-500);
         bloop.add(p);
         bloop.add(q);
-        bloop.add(s,2);
+        bloop.add(s,1);
         System.out.println(bloop.toString());
         System.out.println(bloop.getSize());
     }
@@ -86,7 +86,7 @@ public class LinkedLists {
      */
     public void add(Patient p, int index) {
         Node n = new Node<>(p);
-        if (index == getSize() - 1) {
+        if (index == getSize()) {
             add(p);
         } 
         else if (index >= getSize()){
@@ -107,8 +107,6 @@ public class LinkedLists {
     }
     
     public void add(LinkedLists list, int index){
-        Node prev = get(index - 1);
-        Node next = get(index);
         if (head == null){
             head = list.getHead();
             tail = list.getTail();
@@ -120,9 +118,23 @@ public class LinkedLists {
             throw new IndexOutOfBoundsException();
         }
         else if (index == 0){
+            list.getTail().setNext(head);
+            head.setPrev(list.getTail());
             head = list.getHead();
         }
-        
+        else if (index == getSize()){
+            list.getHead().setPrev(tail);
+            tail.setNext(list.getHead());
+            tail = list.getTail();
+        }
+        else{
+            Node prev = get(index - 1);
+            Node next = get(index);
+            list.getHead().setPrev(prev);
+            list.getTail().setNext(next);
+            prev.setNext(list.getHead());
+            next.setPrev(list.getTail());
+        }   
     }
 
     public void remove(Patient p) {
