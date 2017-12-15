@@ -11,6 +11,7 @@ package linked.lists;
  */
 public class Node<I extends Comparable<I>> implements Comparable<Node<I>> {
 
+    //nodes have a "previous" variable so that the lists can be doubly-linked (because the challenge sounded fun)
     private I item = null;
     private Node<I> next = null;
     private Node<I> prev = null;
@@ -29,31 +30,53 @@ public class Node<I extends Comparable<I>> implements Comparable<Node<I>> {
         this(info, next, null);
     }
 
+    /**
+     * @return the item
+     */
     public I getItem() {
         return item;
     }
 
+    /**
+     * @param item the item to set
+     */
     public void setItem(I item) {
         this.item = item;
     }
 
+    /**
+     * @return the next
+     */
     public Node<I> getNext() {
         return next;
     }
 
-    public void setNext(Node<I> item) {
-        this.next = item;
+    /**
+     * @param next the next to set
+     */
+    public void setNext(Node<I> next) {
+        this.next = next;
     }
-    
+
+    /**
+     * @return the prev
+     */
     public Node<I> getPrev() {
         return prev;
     }
 
-    public void setPrev(Node<I> item) {
-        this.prev = item;
+    /**
+     * @param prev the prev to set
+     */
+    public void setPrev(Node<I> prev) {
+        this.prev = prev;
     }
 
     public int compareTo(Node<I> o) {
-         return item.compareTo(o.item);
+        return getItem().compareTo(o.getItem());
+    }
+
+    public String toString() {
+        return getItem().toString();
     }
 }
