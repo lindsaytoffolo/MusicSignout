@@ -13,20 +13,13 @@ import java.util.ArrayList;
  * @author 072584980
  */
 public class Main {
-
-    private static ArrayList<Type> types = new ArrayList<Type>();
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Type t = new Type("books");
-        addType(t);
         // TODO code application logic here
     }
-    
-    public static void addType(Type t){
-        types.add(t);
-    }
+
     
 }

@@ -13,15 +13,9 @@ import java.util.ArrayList;
 public class Type {
     
     private String name;
-    private ArrayList<Object> objects = new ArrayList<Object>();
 
     public Type(String name){
         this.name = name;
-    }
-    
-    public Type(String name, Object o){
-        this(name);
-        this.addObject(o);
     }
     
     /**
@@ -36,16 +30,5 @@ public class Type {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @return the objects
-     */
-    public ArrayList<Object> getObjects() {
-        return objects;
-    }
-
-    public void addObject(Object o){
-        objects.add(o);
     }
 }
