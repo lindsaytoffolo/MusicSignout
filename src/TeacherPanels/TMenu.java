@@ -1,5 +1,8 @@
 package TeacherPanels;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,11 +14,19 @@ package TeacherPanels;
  */
 public class TMenu extends javax.swing.JPanel {
 
+    JPanel home;
+
+
     /**
      * Creates new form TMenu
      */
     public TMenu() {
         initComponents();
+    }
+
+    public TMenu(JPanel p) {
+        initComponents();
+        home = p;
     }
 
     /**
@@ -27,28 +38,61 @@ public class TMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        btnAddItem = new javax.swing.JButton();
+        btnRemoveItem = new javax.swing.JButton();
+        btnViewHistory = new javax.swing.JButton();
+        cbHistory = new javax.swing.JComboBox();
+        lblHello = new javax.swing.JLabel();
+        btnAddStudents = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 750));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton1.setText("Add Item");
+        btnAddItem.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnAddItem.setText("Add Item");
+        btnAddItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddItemActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton2.setText("Decommission Item");
+        btnRemoveItem.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnRemoveItem.setText("Decommission Item");
+        btnRemoveItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveItemActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton3.setText("View Signout History");
+        btnViewHistory.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnViewHistory.setText("View Signout History");
+        btnViewHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewHistoryActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "By Most Recent", "By Student", "By Object" }));
+        cbHistory.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cbHistory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "By Most Recent", "By Student", "By Object" }));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Hello Teacher! What would you like to do?");
+        lblHello.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblHello.setText("Hello Teacher! What would you like to do?");
+
+        btnAddStudents.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnAddStudents.setText("Add Students");
+        btnAddStudents.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddStudentsActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnLogout.setText("Log out");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -57,43 +101,84 @@ public class TMenu extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(477, 477, 477)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(212, 212, 212)
-                        .addComponent(jLabel1))
+                        .addComponent(lblHello))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(422, 422, 422)
-                        .addComponent(jButton2))
+                        .addGap(432, 432, 432)
+                        .addComponent(btnAddItem))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(325, 325, 325)
-                        .addComponent(jButton3)
+                        .addGap(374, 374, 374)
+                        .addComponent(btnRemoveItem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(btnViewHistory)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(413, 413, 413)
+                        .addComponent(btnAddStudents))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnLogout)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133)
-                .addComponent(jButton1)
-                .addGap(53, 53, 53)
-                .addComponent(jButton2)
-                .addGap(78, 78, 78)
+                .addComponent(lblHello, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112)
+                .addComponent(btnAddItem)
+                .addGap(73, 73, 73)
+                .addComponent(btnRemoveItem)
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(320, Short.MAX_VALUE))
+                    .addComponent(btnViewHistory)
+                    .addComponent(cbHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(81, 81, 81)
+                .addComponent(btnAddStudents)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+            CardLayout cl = (CardLayout) home.getLayout();
+            cl.show(home, "login");
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemActionPerformed
+            CardLayout cl = (CardLayout) home.getLayout();
+            cl.show(home, "addItem");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddItemActionPerformed
+
+    private void btnRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemActionPerformed
+            CardLayout cl = (CardLayout) home.getLayout();
+            cl.show(home, "removeItem");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoveItemActionPerformed
+
+    private void btnViewHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHistoryActionPerformed
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewHistoryActionPerformed
+
+    private void btnAddStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentsActionPerformed
+            CardLayout cl = (CardLayout) home.getLayout();
+        cl.show(home, "addStuds");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddStudentsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnAddItem;
+    private javax.swing.JButton btnAddStudents;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnRemoveItem;
+    private javax.swing.JButton btnViewHistory;
+    private javax.swing.JComboBox cbHistory;
+    private javax.swing.JLabel lblHello;
     // End of variables declaration//GEN-END:variables
 }

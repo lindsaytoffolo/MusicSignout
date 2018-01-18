@@ -12,16 +12,16 @@ import javax.swing.JPanel;
  *
  * @author 072584980
  */
-public class TRemoveForm extends javax.swing.JPanel {
+public class TPickItem extends javax.swing.JPanel {
 JPanel home;
 
     /**
      * Creates new form TMenu
      */
-    public TRemoveForm() {
+    public TPickItem() {
         initComponents();
     }
-    public TRemoveForm(JPanel p) {
+    public TPickItem(JPanel p) {
         initComponents();
         home = p;
     }
@@ -49,7 +49,7 @@ JPanel home;
         setPreferredSize(new java.awt.Dimension(1000, 750));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Please fill in the following information");
+        jLabel1.setText("Please select the following information");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Type");
@@ -64,7 +64,7 @@ JPanel home;
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Object 1" }));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Get history for this instrument");
+        jButton1.setText("Confirm");
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Back");

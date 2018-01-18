@@ -1,3 +1,8 @@
+
+import TeacherPanels.*;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,6 +19,20 @@ public class TeacherJFrame extends javax.swing.JFrame {
      */
     public TeacherJFrame() {
         initComponents();
+        CardLayout cl = new CardLayout();
+        jPanel1.setLayout(cl);
+        jPanel1.add(new TLogin(jPanel1), "login");
+        jPanel1.add(new TMenu(jPanel1), "menu");
+        jPanel1.add(new TAddForm(jPanel1), "addItem");
+        jPanel1.add(new TDateHistory(jPanel1), "dateHist");
+        jPanel1.add(new TItemHistory(jPanel1), "itemHist");
+        jPanel1.add(new TPickItem(jPanel1), "pickItem");
+        jPanel1.add(new TPickStudent(jPanel1), "pickStud");
+        jPanel1.add(new TRemoveForm(jPanel1), "removeItem");
+        jPanel1.add(new TStudentHistory(jPanel1), "studHist");
+        jPanel1.add(new TAddStudents(jPanel1), "addStuds");
+        cl.show(jPanel1, "login");
+        
     }
 
     /**
@@ -25,23 +44,30 @@ public class TeacherJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tAddStudentForm1 = new TAddStudentForm();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(tAddStudentForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(tAddStudentForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -81,8 +107,8 @@ public class TeacherJFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private TAddStudentForm tAddStudentForm1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
