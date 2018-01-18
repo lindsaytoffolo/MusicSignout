@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,7 +42,6 @@ public class SLogin extends javax.swing.JPanel {
 
         jLabel1.setText("Please scan student card to log in");
 
-        jTextField1.setText(" ");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -88,42 +88,39 @@ public class SLogin extends javax.swing.JPanel {
         System.out.println("CLICKED");
         boolean exists = false;
         int count = 0;
-        int key = Integer.parseInt(jTextField1.getText());
+        String key = jTextField1.getText();
         Connection c = Database.connectDB(); 
         if (c == null) System.exit(-1); 
         System.out.println("Connected!");
         Statement stmt; 
-        ResultSet rs; 
+        ResultSet rs;
         //int text text boolean
         try { 
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM student"); 
             // Now do something with the ResultSet .... 
-            while(rs.next()==true || exists==false) { 
-                count++;
-                int id = Integer.parseInt(rs.getString("id"));
-                if(key==id){
+            while(rs.next()==true && exists==false) { 
+                String id = rs.getString("id");
+                System.out.println(id+","+key);
+                if(key.equals(id)){
                     exists = true;
                 }
-        }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip");
-        }
-        System.out.println("Coolio");
-        //we'll make this part a separate method (called welcome or something)
-        try { 
-            stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM student"); 
-            // Now do something with the ResultSet .... 
-            for(int i = 1; i<count; i++){
-                rs.getString("fname");
-                rs.getString("lname");
+        } 
+            if(exists==true){
+                System.out.println("student exists in DB");
+                System.out.println(rs.getString("fname"));
+                String fNam = rs.getString("fname");
+                String lNam = rs.getString("lname");
+                Student s = new Student(key,fNam,lNam,false);
+                JOptionPane.showMessageDialog(null,"Welcome "+s.toString()+"!");
             }
-            String fNam = rs.getString("fname");
-            String lNam = rs.getString("lname");
-            Student s = new Student(key,fNam,lNam,false);
-            System.out.println("Welcome "+s.toString());
+            else{
+                JOptionPane.showMessageDialog(null,"Please scan a valid student ID.");
+                jTextField1.setText("");
+            }
+            rs.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip");
+            System.out.println(e.getMessage()+"\n rip2");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

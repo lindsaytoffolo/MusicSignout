@@ -10,7 +10,8 @@ public class Database {
     /** * @param args the command line arguments */ 
 
     public static void main(String[] args) { 
-    connectDB();
+        connectDB();
+        readDB();
     }
     
     public static Connection connectDB() { 
@@ -24,11 +25,11 @@ public class Database {
     return connection;
     } 
     
-    public void readDB(){
+    public static void readDB(){
         Connection c = connectDB(); 
         if (c == null) System.exit(-1); 
-    Statement stmt; 
-    ResultSet rs; 
+        Statement stmt; 
+        ResultSet rs; 
             //int text text boolean
         try { 
             stmt = c.createStatement();
@@ -37,34 +38,29 @@ public class Database {
             while (rs.next()==true) { 
                 String name = rs.getString("fname");
                 String countryId = rs.getString("id"); 
-                System.out.println(name + ":" + countryId); 
+                String lNam = rs.getString("lname");
+                System.out.println(countryId+", "+name+", "+lNam); 
                 //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\n rip");
         }
     }
     
-    public void addDB(){
+    public static void addDB(){
         Connection c = connectDB(); 
-        if (c == null) System.exit(-1); 
+        if (c == null) 
+            System.exit(-1); 
         Statement stmt; 
         ResultSet rs; 
         //data types are: int text text boolean
         try { 
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM student"); 
-            // Now do something with the ResultSet .... 
-            while (rs.next()==true) { 
-                String name = rs.getString("fname");
-                String countryId = rs.getString("id"); 
-                System.out.println(name + ":" + countryId); 
-                //System.out.println(rs.getObject(1));
-                } 
             String q = "insert into student(id,fname,lname,active) values(?,?,?,?)";
             PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setInt(1, 2456456);
-            pstmt.setString(2, "E");
-            pstmt.setString(3, "A");
+            pstmt.setString(1, "2323");
+            pstmt.setString(2, "Emily");
+            pstmt.setString(3, "Anas");
             pstmt.setBoolean(4, true);
             pstmt.executeUpdate();
             System.out.println("Boop");

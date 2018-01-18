@@ -10,19 +10,19 @@ package StudentPanels;
  * @author 072584980
  */
 public class Student {
-    int sNum;
+    String sNum;
     String fNam;
     String lNam;
     boolean active;
     
     public Student(){
-        sNum = 0;
+        sNum = "0";
         fNam = "";
         lNam = "";
         active = false;
     }
     
-    public Student(int num, String fn, String ln, boolean a){
+    public Student(String num, String fn, String ln, boolean a){
         sNum = num;
         fNam = fn;
         lNam = ln;
