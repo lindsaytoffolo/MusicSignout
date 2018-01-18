@@ -65,7 +65,7 @@ public class TPickItem extends javax.swing.JPanel {
         cbObject.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Object 1" }));
 
         btnConfirm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnConfirm.setText("Confirm");
+        btnConfirm.setText("Get history for this instrument");
 
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBack.setText("Back");
@@ -78,7 +78,7 @@ public class TPickItem extends javax.swing.JPanel {
         lblItem.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblItem.setText("Item");
 
-        cbItem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cbItem.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         cbItem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -131,7 +131,7 @@ public class TPickItem extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblItem))
-                .addGap(25, 274, Short.MAX_VALUE))
+                .addGap(25, 270, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

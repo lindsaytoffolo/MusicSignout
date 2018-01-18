@@ -98,7 +98,9 @@ private static String fNam, lNam;
         System.out.println("CLICKED");
         boolean exists = false;
         int count = 0;
-        String key = tfBarcode.getText();
+        String key = tfBarcode.getText().substring(1,10);
+        
+        
         Connection c = Database.connectDB(); 
         if (c == null) System.exit(-1); 
         System.out.println("Connected!");
@@ -121,8 +123,9 @@ private static String fNam, lNam;
                 System.out.println(rs.getString("fname"));
                 fNam = rs.getString("fname");
                 lNam = rs.getString("lname");
-                Student s = new Student(key, getfNam(), getlNam(),false);
+                Student s = new Student(key, getfNam(), getlNam(),false); 
                 //SMenu.lblWelcome.setText("Welcome "+s.toString()+"!");
+                tfBarcode.setText("");
                 CardLayout cl = (CardLayout) home.getLayout();
                 cl.show(home, "menu");
                      

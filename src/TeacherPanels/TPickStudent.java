@@ -39,15 +39,15 @@ JPanel home;
         lblHeader = new javax.swing.JLabel();
         tfFName = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        tfBarcode = new javax.swing.JTextField();
+        tfStudentNum = new javax.swing.JTextField();
         lblFName = new javax.swing.JLabel();
         tfLName = new javax.swing.JLabel();
-        lblBarcode = new javax.swing.JLabel();
+        lblStudentNum = new javax.swing.JLabel();
         btnFindStudName = new javax.swing.JButton();
-        btnFindStudBC = new javax.swing.JButton();
+        btnFindStudNum = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         lblByName = new javax.swing.JLabel();
-        lblByBarcode = new javax.swing.JLabel();
+        lblByNum = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 750));
@@ -59,10 +59,10 @@ JPanel home;
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        tfBarcode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        tfBarcode.addActionListener(new java.awt.event.ActionListener() {
+        tfStudentNum.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tfStudentNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfBarcodeActionPerformed(evt);
+                tfStudentNumActionPerformed(evt);
             }
         });
 
@@ -72,8 +72,8 @@ JPanel home;
         tfLName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tfLName.setText("Last name");
 
-        lblBarcode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblBarcode.setText("barcode");
+        lblStudentNum.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblStudentNum.setText("Student #");
 
         btnFindStudName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnFindStudName.setText("Find student");
@@ -83,19 +83,19 @@ JPanel home;
             }
         });
 
-        btnFindStudBC.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnFindStudBC.setText("Find student");
-        btnFindStudBC.addActionListener(new java.awt.event.ActionListener() {
+        btnFindStudNum.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnFindStudNum.setText("Find student");
+        btnFindStudNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindStudBCActionPerformed(evt);
+                btnFindStudNumActionPerformed(evt);
             }
         });
 
         lblByName.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblByName.setText("By name");
 
-        lblByBarcode.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblByBarcode.setText("By barcode (scan or enter student # with an extra zero in front)");
+        lblByNum.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblByNum.setText("By student number");
 
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBack.setText("Back");
@@ -132,18 +132,18 @@ JPanel home;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(343, 343, 343)
-                        .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfStudentNum, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(219, 219, 219)
-                        .addComponent(btnFindStudBC))
+                        .addComponent(btnFindStudNum))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblByName)
-                            .addComponent(lblByBarcode)
+                            .addComponent(lblByNum)
                             .addComponent(btnBack)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(426, 426, 426)
-                        .addComponent(lblBarcode)))
+                        .addComponent(lblStudentNum)))
                 .addGap(15, 68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -164,32 +164,32 @@ JPanel home;
                 .addGap(68, 68, 68)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblByBarcode)
+                .addComponent(lblByNum)
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFindStudBC))
+                    .addComponent(tfStudentNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFindStudNum))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBarcode)
+                .addComponent(lblStudentNum)
                 .addGap(157, 157, 157)
                 .addComponent(btnBack)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBarcodeActionPerformed
+    private void tfStudentNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfStudentNumActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfBarcodeActionPerformed
+    }//GEN-LAST:event_tfStudentNumActionPerformed
 
     private void btnFindStudNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindStudNameActionPerformed
         //history of student with first name tfFName.getText() and last name tfLName.getText()
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFindStudNameActionPerformed
 
-    private void btnFindStudBCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindStudBCActionPerformed
+    private void btnFindStudNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindStudNumActionPerformed
         //history of student with id tfBarcode.getText()
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnFindStudBCActionPerformed
+    }//GEN-LAST:event_btnFindStudNumActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         CardLayout cl = (CardLayout) home.getLayout();
@@ -200,18 +200,18 @@ JPanel home;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnFindStudBC;
     private javax.swing.JButton btnFindStudName;
+    private javax.swing.JButton btnFindStudNum;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel lblBarcode;
-    private javax.swing.JLabel lblByBarcode;
     private javax.swing.JLabel lblByName;
+    private javax.swing.JLabel lblByNum;
     private javax.swing.JLabel lblFName;
     private javax.swing.JLabel lblHeader;
-    private javax.swing.JTextField tfBarcode;
+    private javax.swing.JLabel lblStudentNum;
     private javax.swing.JTextField tfFName;
     private javax.swing.JLabel tfLName;
+    private javax.swing.JTextField tfStudentNum;
     // End of variables declaration//GEN-END:variables
 }

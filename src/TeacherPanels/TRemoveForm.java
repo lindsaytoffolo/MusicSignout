@@ -66,7 +66,7 @@ public class TRemoveForm extends javax.swing.JPanel {
         cbObject.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Object 1" }));
 
         btnGet.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnGet.setText("Get history for this instrument");
+        btnGet.setText("Confirm");
 
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBack.setText("Back");

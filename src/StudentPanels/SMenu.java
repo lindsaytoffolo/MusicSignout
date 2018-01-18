@@ -85,8 +85,10 @@ public class SMenu extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(406, 406, 406)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnReturn)
-                            .addComponent(btnSignout))))
+                            .addComponent(btnSignout)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(btnReturn)))))
                 .addContainerGap(421, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
