@@ -119,7 +119,7 @@
           <StringArray count="3">
             <StringItem index="0" value="By Most Recent"/>
             <StringItem index="1" value="By Student"/>
-            <StringItem index="2" value="By Object"/>
+            <StringItem index="2" value="By Item"/>
           </StringArray>
         </Property>
       </Properties>

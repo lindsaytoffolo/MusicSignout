@@ -43,7 +43,7 @@ public class TLogin extends javax.swing.JPanel {
         lblHello = new javax.swing.JLabel();
         tfPassword = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 750));
 
@@ -60,8 +60,8 @@ public class TLogin extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("password");
+        lblPassword.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblPassword.setText("password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,7 +74,7 @@ public class TLogin extends javax.swing.JPanel {
                         .addComponent(lblHello))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(210, 210, 210)
-                        .addComponent(jLabel1)
+                        .addComponent(lblPassword)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -89,7 +89,7 @@ public class TLogin extends javax.swing.JPanel {
                 .addGap(152, 152, 152)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(lblPassword))
                 .addGap(100, 100, 100)
                 .addComponent(btnLogin)
                 .addGap(0, 382, Short.MAX_VALUE))
@@ -111,8 +111,8 @@ public class TLogin extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblHello;
+    private javax.swing.JLabel lblPassword;
     private javax.swing.JTextField tfPassword;
     // End of variables declaration//GEN-END:variables
 }
