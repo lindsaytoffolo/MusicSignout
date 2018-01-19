@@ -123,8 +123,6 @@ private static String fNam, lNam;
                 System.out.println(rs.getString("fname"));
                 fNam = rs.getString("fname");
                 lNam = rs.getString("lname");
-                Student s = new Student(key, getfNam(), getlNam(),false); 
-                //SMenu.lblWelcome.setText("Welcome "+s.toString()+"!");
                 tfBarcode.setText("");
                 CardLayout cl = (CardLayout) home.getLayout();
                 cl.show(home, "menu");
@@ -132,7 +130,7 @@ private static String fNam, lNam;
                 //JOptionPane.showMessageDialog(null,"Welcome "+s.toString()+"!");
                 String fNam = rs.getString("fname");
                 String lNam = rs.getString("lname");
-                JOptionPane.showMessageDialog(null,"Welcome "+lNam+", "+fNam+"!");
+                //JOptionPane.showMessageDialog(null,"Welcome "+lNam+", "+fNam+"!");
             }
             else{
                 JOptionPane.showMessageDialog(null,"Please scan a valid student ID.");

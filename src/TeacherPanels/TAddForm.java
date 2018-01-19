@@ -136,11 +136,6 @@ public class TAddForm extends javax.swing.JPanel {
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAdd.setText("Add item");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -217,35 +212,7 @@ public class TAddForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        String object;
-        String type;
-
-        if (cbObject.getSelectedIndex() == 0) {
-            object = tfNewObject.getText();
-            if (cbType.getSelectedIndex() == 0) {
-                type = tfNewType.getText();
-            } 
-            else {
-                type = (String) cbType.getSelectedItem();
-            }
-        } 
-        else {
-            object = (String) cbObject.getSelectedItem();
-            type = (String) cbType.getSelectedItem();
-        }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void cbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTypeActionPerformed
-        
-    }//GEN-LAST:event_cbTypeActionPerformed
-
-    private void cbTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbTypeMouseClicked
-        
-    }//GEN-LAST:event_cbTypeMouseClicked
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
         //add type and object to DB
         String type = tfNewType.getText();
         String object = tfNewObject.getText();
@@ -283,7 +250,15 @@ public class TAddForm extends javax.swing.JPanel {
                 System.out.println(e.getMessage()+"\n rip");
             }
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }                                      
+
+    private void cbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTypeActionPerformed
+        
+    }//GEN-LAST:event_cbTypeActionPerformed
+
+    private void cbTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbTypeMouseClicked
+        
+    }//GEN-LAST:event_cbTypeMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
