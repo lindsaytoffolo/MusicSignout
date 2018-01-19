@@ -1,6 +1,13 @@
 package TeacherPanels;
 
+import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JPanel;
 
 /*
@@ -24,6 +31,33 @@ JPanel home;
 public TAddForm(JPanel p) {
         initComponents();
         home = p;
+        String type;
+        String object;
+        Connection c = StudentPanels.Database.connectDB();
+        if (c == null) System.exit(-1); 
+        Statement stmt; 
+        ResultSet rs; 
+            //int text text boolean
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM type"); 
+            while (rs.next()==true) { 
+                type = rs.getString("name");
+                cbType.addItem(type);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\n rip");
+        }
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM object"); 
+            while (rs.next()==true) { 
+                object = rs.getString("name");
+                cbObject.addItem(object);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\n rip");
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,6 +95,16 @@ public TAddForm(JPanel p) {
 
         cbType.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Create new type" }));
+        cbType.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbTypeMouseClicked(evt);
+            }
+        });
+        cbType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTypeActionPerformed(evt);
+            }
+        });
 
         cbObject.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cbObject.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Create new object" }));
@@ -90,6 +134,11 @@ public TAddForm(JPanel p) {
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAdd.setText("Add item");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -169,6 +218,54 @@ public TAddForm(JPanel p) {
            cl.show(home, "menu");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void cbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTypeActionPerformed
+        
+    }//GEN-LAST:event_cbTypeActionPerformed
+
+    private void cbTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbTypeMouseClicked
+        
+    }//GEN-LAST:event_cbTypeMouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        //add type and object to DB
+        String type = tfNewType.getText();
+        String object = tfNewObject.getText();
+        Connection c = StudentPanels.Database.connectDB();
+        if (c == null) 
+            System.exit(-1); 
+        Statement stmt; 
+        ResultSet rs; 
+        //data types are: int text text boolean
+        if(cbType.getSelectedIndex()==0){
+            try { 
+                stmt = c.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM type"); 
+                String q = "insert into type(t_id,name) values(DEFAULT,?)";
+                PreparedStatement pstmt = c.prepareStatement(q); {
+               // pstmt.setInt(1, 3);
+                pstmt.setString(1,type);
+                pstmt.executeUpdate();
+                System.out.println("Boop");
+                rs.close();
+            }} catch (SQLException e) {
+                System.out.println(e.getMessage()+"\n rip");
+            }
+        }
+        if(cbObject.getSelectedIndex()==0){
+            try { 
+                stmt = c.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM object"); 
+                String q = "insert into object(o_id,t_id,name) values(DEFAULT,DEFAULT,?)";
+                PreparedStatement pstmt = c.prepareStatement(q); {
+                pstmt.setString(3,object);
+                pstmt.executeUpdate();
+                System.out.println("Boop");
+            }} catch (SQLException e) {
+                System.out.println(e.getMessage()+"\n rip");
+            }
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

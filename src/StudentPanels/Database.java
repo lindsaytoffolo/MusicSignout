@@ -33,13 +33,11 @@ public class Database {
             //int text text boolean
         try { 
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM student"); 
+            rs = stmt.executeQuery("SELECT * FROM type"); 
             // Now do something with the ResultSet .... 
             while (rs.next()==true) { 
-                String name = rs.getString("fname");
-                String countryId = rs.getString("id"); 
-                String lNam = rs.getString("lname");
-                System.out.println(countryId+", "+name+", "+lNam); 
+                String object = rs.getString("name");
+                System.out.println(object); 
                 //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\n rip");
@@ -55,13 +53,12 @@ public class Database {
         //data types are: int text text boolean
         try { 
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM student"); 
-            String q = "insert into student(id,fname,lname,active) values(?,?,?,?)";
+            rs = stmt.executeQuery("SELECT * FROM object"); 
+            String q = "insert into object(o_id,t_id,name) values(?,?,?)";
             PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setString(1, "2323");
-            pstmt.setString(2, "Emily");
-            pstmt.setString(3, "Anas");
-            pstmt.setBoolean(4, true);
+            pstmt.setInt(1,1);
+            pstmt.setInt(2,1);
+            pstmt.setString(3, "Flute");
             pstmt.executeUpdate();
             System.out.println("Boop");
         }} catch (SQLException e) {

@@ -111,8 +111,7 @@ public class SLogin extends javax.swing.JPanel {
                 System.out.println(rs.getString("fname"));
                 String fNam = rs.getString("fname");
                 String lNam = rs.getString("lname");
-                Student s = new Student(key,fNam,lNam,false);
-                JOptionPane.showMessageDialog(null,"Welcome "+s.toString()+"!");
+                JOptionPane.showMessageDialog(null,"Welcome "+lNam+", "+fNam+"!");
             }
             else{
                 JOptionPane.showMessageDialog(null,"Please scan a valid student ID.");
