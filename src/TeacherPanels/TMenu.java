@@ -16,7 +16,6 @@ public class TMenu extends javax.swing.JPanel {
 
     JPanel home;
 
-
     /**
      * Creates new form TMenu
      */
@@ -73,7 +72,7 @@ public class TMenu extends javax.swing.JPanel {
         });
 
         cbHistory.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        cbHistory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "By Most Recent", "By Student", "By Object" }));
+        cbHistory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "By Most Recent", "By Student", "By Item" }));
 
         lblHello.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         lblHello.setText("Hello Teacher! What would you like to do?");
@@ -143,30 +142,39 @@ public class TMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-            CardLayout cl = (CardLayout) home.getLayout();
-            cl.show(home, "login");
+        CardLayout cl = (CardLayout) home.getLayout();
+        cl.show(home, "login");
 // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemActionPerformed
-            CardLayout cl = (CardLayout) home.getLayout();
-            cl.show(home, "addItem");
+        CardLayout cl = (CardLayout) home.getLayout();
+        cl.show(home, "addItem");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddItemActionPerformed
 
     private void btnRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemActionPerformed
-            CardLayout cl = (CardLayout) home.getLayout();
-            cl.show(home, "removeItem");
+        CardLayout cl = (CardLayout) home.getLayout();
+        cl.show(home, "removeItem");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoveItemActionPerformed
 
     private void btnViewHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHistoryActionPerformed
-        
+        if (cbHistory.getSelectedItem().equals("By Most Recent")) {
+            CardLayout cl = (CardLayout) home.getLayout();
+            cl.show(home, "dateHist");
+        } else if (cbHistory.getSelectedItem().equals("By Student")) {
+            CardLayout cl = (CardLayout) home.getLayout();
+            cl.show(home, "pickStud");
+        } else if (cbHistory.getSelectedItem().equals("By Item")) {
+            CardLayout cl = (CardLayout) home.getLayout();
+            cl.show(home, "pickItem");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnViewHistoryActionPerformed
 
     private void btnAddStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentsActionPerformed
-            CardLayout cl = (CardLayout) home.getLayout();
+        CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "addStuds");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddStudentsActionPerformed

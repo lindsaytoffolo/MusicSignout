@@ -1,6 +1,17 @@
 package TeacherPanels;
 
+import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /*
@@ -35,21 +46,118 @@ JPanel home;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnBack = new javax.swing.JButton();
+        lblHeader = new javax.swing.JLabel();
+        tfFile = new javax.swing.JTextField();
+        btnAdd = new javax.swing.JButton();
+
         setPreferredSize(new java.awt.Dimension(1000, 750));
+
+        btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        lblHeader.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblHeader.setText("Please enter the location of the student file");
+        lblHeader.setToolTipText("");
+
+        tfFile.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        btnAdd.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnAdd.setText("Add students");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(407, 407, 407)
+                        .addComponent(btnAdd)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(lblHeader))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(277, 277, 277)
+                        .addComponent(tfFile, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 166, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblHeader)
+                .addGap(214, 214, 214)
+                .addComponent(tfFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(btnAdd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        CardLayout cl = (CardLayout) home.getLayout();
+        cl.show(home, "menu");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        try {                                         
+            File file = new File(tfFile.getText());
+            //"StudentInfoStuffs.txt"
+            Scanner sc = new Scanner(file);
+            Connection c = connectDB();
+            if (c == null)
+                System.exit(-1);
+            Statement stmt;
+            ResultSet rs;
+            //data types are: int text text boolean
+            while(sc.hasNext()){
+            try {
+                stmt = c.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM student");
+                String q = "insert into student(id,fname,lname,active) values(?,?,?,?)";
+                String ln = sc.nextLine();
+                String [] info = ln.split(",");
+                PreparedStatement pstmt = c.prepareStatement(q); {
+                pstmt.setString(1, info[0]);
+                pstmt.setString(2, info[1]);
+                pstmt.setString(3, info[2]);
+                pstmt.setBoolean(4, true);
+                pstmt.executeUpdate();
+                System.out.println("Boop");
+            }} catch (SQLException e) {
+                System.out.println(e.getMessage()+"\n rip");
+            }}
+            System.out.println("Done");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TAddStudents.class.getName()).log(Level.SEVERE, null, ex);
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JLabel lblHeader;
+    private javax.swing.JTextField tfFile;
     // End of variables declaration//GEN-END:variables
 }

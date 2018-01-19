@@ -12,18 +12,18 @@ import javax.swing.JPanel;
  *
  * @author Emily Anas
  */
-public class SSignOut extends javax.swing.JPanel {
+public class SReturn extends javax.swing.JPanel {
 
     JPanel home;
 
     /**
      * Creates new form SSignOut
      */
-    public SSignOut() {
+    public SReturn() {
         initComponents();
     }
 
-    public SSignOut(JPanel p) {
+    public SReturn(JPanel p) {
         initComponents();
         home = p;
     }
@@ -40,9 +40,7 @@ public class SSignOut extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         lblHeader = new javax.swing.JLabel();
         tfBarcode = new javax.swing.JTextField();
-        tfSignout = new javax.swing.JButton();
-
-        setPreferredSize(new java.awt.Dimension(1000, 750));
+        btnReturn = new javax.swing.JButton();
 
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnBack.setText("Back");
@@ -52,46 +50,44 @@ public class SSignOut extends javax.swing.JPanel {
             }
         });
 
-        lblHeader.setFont(new java.awt.Font("Tahoma", 0, 35)); // NOI18N
-        lblHeader.setText("Please scan the barcode of the item you would like to sign out");
+        lblHeader.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblHeader.setText("Please scan the barcode of the item you would like to return");
 
         tfBarcode.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        tfSignout.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        tfSignout.setText("Sign out");
+        btnReturn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnReturn.setText("Return");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(298, 298, 298))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(tfSignout)
-                        .addGap(436, 436, 436))))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBack)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(lblHeader)
-                .addGap(18, 18, 18))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(275, 275, 275)
+                        .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(437, 437, 437)
+                        .addComponent(btnReturn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lblHeader)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblHeader)
-                .addGap(243, 243, 243)
+                .addGap(240, 240, 240)
                 .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(tfSignout)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
+                .addComponent(btnReturn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addContainerGap())
         );
@@ -106,8 +102,8 @@ public class SSignOut extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnReturn;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JTextField tfBarcode;
-    private javax.swing.JButton tfSignout;
     // End of variables declaration//GEN-END:variables
 }

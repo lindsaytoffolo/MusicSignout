@@ -20,7 +20,8 @@ import javax.swing.JPanel;
  * @author 072584980
  */
 public class TAddForm extends javax.swing.JPanel {
-JPanel home;
+
+    JPanel home;
 
     /**
      * Creates new form TMenu
@@ -28,7 +29,8 @@ JPanel home;
     public TAddForm() {
         initComponents();
     }
-public TAddForm(JPanel p) {
+
+    public TAddForm(JPanel p) {
         initComponents();
         home = p;
         String type;
@@ -59,6 +61,7 @@ public TAddForm(JPanel p) {
             System.out.println(e.getMessage()+"\n rip");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,7 +81,6 @@ public TAddForm(JPanel p) {
         lblCongrats = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         lblBarcode = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
 
@@ -148,9 +150,7 @@ public TAddForm(JPanel p) {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnBack)
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel7))
+                        .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(212, 212, 212)
                         .addComponent(lblHeader))
@@ -203,9 +203,7 @@ public TAddForm(JPanel p) {
                 .addComponent(lblName)
                 .addGap(35, 35, 35)
                 .addComponent(lblBarcode)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(25, 25, 25))
+                .addGap(25, 80, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnBack)
@@ -214,10 +212,30 @@ public TAddForm(JPanel p) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-           CardLayout cl = (CardLayout) home.getLayout();
-           cl.show(home, "menu");
+        CardLayout cl = (CardLayout) home.getLayout();
+        cl.show(home, "menu");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String object;
+        String type;
+
+        if (cbObject.getSelectedIndex() == 0) {
+            object = tfNewObject.getText();
+            if (cbType.getSelectedIndex() == 0) {
+                type = tfNewType.getText();
+            } 
+            else {
+                type = (String) cbType.getSelectedItem();
+            }
+        } 
+        else {
+            object = (String) cbObject.getSelectedItem();
+            type = (String) cbType.getSelectedItem();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void cbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTypeActionPerformed
         
@@ -273,7 +291,6 @@ public TAddForm(JPanel p) {
     private javax.swing.JButton btnBack;
     private javax.swing.JComboBox cbObject;
     private javax.swing.JComboBox cbType;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblBarcode;
     private javax.swing.JLabel lblCongrats;
     private javax.swing.JLabel lblHeader;
