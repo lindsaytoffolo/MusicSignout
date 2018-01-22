@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -121,9 +122,12 @@ public class SSignOut extends javax.swing.JPanel {
     private void tfSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSignoutActionPerformed
         String barcode = tfBarcode.getText();
         String id = SLogin.getid();
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
-        String sodate = df.format(cal.getTime());
+        Date now = new Date(cal.getTimeInMillis());
+        //String sodate = df.format(cal.getTime());
+        Timestamp sts = new Timestamp(now.getTime());
+        Timestamp rts = new Timestamp(0,0,0,0,0,0,0);
         
         Connection c = Database.connectDB(); 
         if (c == null) 
@@ -132,12 +136,14 @@ public class SSignOut extends javax.swing.JPanel {
         //data types are: int text text boolean
         try { 
             stmt = c.createStatement();
-            String q = "insert into history(sodate,student,i-bc,return_date) values(DEFAULT,?,?,?)";
+            String q = "insert into history(sodate,s_id,i_bc,return_date) values(?,?,?,?)";
             PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setString(1,id);
-            pstmt.setString(2, barcode);
-            pstmt.setTimestamp(3,null);
+            pstmt.setTimestamp(1, sts);
+            pstmt.setString(2,id);
+            pstmt.setString(3, barcode);
+            pstmt.setTimestamp(4,rts);
             pstmt.executeUpdate();
+            
             System.out.println("Boop");
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\n rip");

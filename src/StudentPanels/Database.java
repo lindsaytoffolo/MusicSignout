@@ -17,7 +17,7 @@ public class Database {
     public static Connection connectDB() { 
         Connection connection = null;
         try { 
-            connection = DriverManager.getConnection("jdbc:mysql://10.242.66.224/music_system_el", "music", "doremi");
+            connection = DriverManager.getConnection("jdbc:mysql://10.242.72.28/music_system_el", "music", "doremi");
     } catch (SQLException e) { 
         System.out.println("connection failed\n" + e);
         return null;
