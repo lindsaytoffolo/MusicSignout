@@ -1,6 +1,16 @@
 package StudentPanels;
 
+import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JPanel;
 
 /*
@@ -59,6 +69,11 @@ public class SSignOut extends javax.swing.JPanel {
 
         tfSignout.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         tfSignout.setText("Sign out");
+        tfSignout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSignoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -102,6 +117,33 @@ public class SSignOut extends javax.swing.JPanel {
         cl.show(home, "menu");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void tfSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSignoutActionPerformed
+        String barcode = tfBarcode.getText();
+        String id = SLogin.getid();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        String sodate = df.format(cal.getTime());
+        
+        Connection c = Database.connectDB(); 
+        if (c == null) 
+            System.exit(-1); 
+        Statement stmt; 
+        //data types are: int text text boolean
+        try { 
+            stmt = c.createStatement();
+            String q = "insert into history(sodate,student,i-bc,return_date) values(DEFAULT,?,?,?)";
+            PreparedStatement pstmt = c.prepareStatement(q); {
+            pstmt.setString(1,id);
+            pstmt.setString(2, barcode);
+            pstmt.setTimestamp(3,null);
+            pstmt.executeUpdate();
+            System.out.println("Boop");
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\n rip");
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSignoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
