@@ -48,7 +48,9 @@ public class TRemoveForm extends javax.swing.JPanel {
                 type = rs.getString("name");
                 cbType.addItem(type);
                 //System.out.println(rs.getObject(1));
-        }} catch (SQLException e) {
+        }
+        rs.close();
+        } catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
         try { 
@@ -58,7 +60,9 @@ public class TRemoveForm extends javax.swing.JPanel {
                 object = rs.getString("name");
                 cbObject.addItem(object);
                 //System.out.println(rs.getObject(1));
-        }} catch (SQLException e) {
+        }
+        rs.close();
+        } catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
         try { 
@@ -68,7 +72,9 @@ public class TRemoveForm extends javax.swing.JPanel {
                 object = rs.getString("name");
                 cbItem.addItem(object);
                 //System.out.println(rs.getObject(1));
-        }} catch (SQLException e) {
+        }
+        rs.close();
+        } catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
     }
@@ -105,10 +111,8 @@ public class TRemoveForm extends javax.swing.JPanel {
         lblObject.setText("Object");
 
         cbType.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Type 1" }));
 
         cbObject.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cbObject.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Object 1" }));
 
         btnGet.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnGet.setText("Confirm");
@@ -130,7 +134,6 @@ public class TRemoveForm extends javax.swing.JPanel {
         lblItem.setText("Item");
 
         cbItem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cbItem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
