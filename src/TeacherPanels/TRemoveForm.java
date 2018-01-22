@@ -1,6 +1,13 @@
 package TeacherPanels;
 
+import StudentPanels.Database;
+import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JPanel;
 
 /*
@@ -15,6 +22,7 @@ import javax.swing.JPanel;
 public class TRemoveForm extends javax.swing.JPanel {
 
     JPanel home;
+    String item;
 
     /**
      * Creates new form TMenu
@@ -26,6 +34,43 @@ public class TRemoveForm extends javax.swing.JPanel {
     public TRemoveForm(JPanel p) {
         initComponents();
         home = p;
+        String type;
+        String object;
+        Connection c = StudentPanels.Database.connectDB();
+        if (c == null) System.exit(-1); 
+        Statement stmt; 
+        ResultSet rs; 
+        //these try catch statements allow the choices for type, object, and item to appear
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM type"); 
+            while (rs.next()==true) { 
+                type = rs.getString("name");
+                cbType.addItem(type);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM object"); 
+            while (rs.next()==true) { 
+                object = rs.getString("name");
+                cbObject.addItem(object);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM item"); 
+            while (rs.next()==true) { 
+                object = rs.getString("name");
+                cbItem.addItem(object);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
     }
 
     /**
@@ -67,6 +112,11 @@ public class TRemoveForm extends javax.swing.JPanel {
 
         btnGet.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnGet.setText("Confirm");
+        btnGet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGetActionPerformed(evt);
+            }
+        });
 
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBack.setText("Back");
@@ -151,6 +201,25 @@ public class TRemoveForm extends javax.swing.JPanel {
         cl.show(home, "menu");        
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnGetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetActionPerformed
+        item = (String)cbItem.getSelectedItem();
+        Connection c = Database.connectDB(); 
+        if (c == null) 
+            System.exit(-1); 
+        Statement stmt; 
+        //data types are: int text text boolean
+        try { 
+            stmt = c.createStatement();
+            String q = ("UPDATE item SET active = ? WHERE column_5 = "+item+" LIMIT 1");
+            PreparedStatement pstmt = c.prepareStatement(q); {
+            pstmt.setBoolean(1,false);
+            pstmt.executeUpdate();
+            System.out.println("Boop");
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+    }//GEN-LAST:event_btnGetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

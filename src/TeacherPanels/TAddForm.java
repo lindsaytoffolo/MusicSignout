@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /*
@@ -22,6 +25,11 @@ import javax.swing.JPanel;
 public class TAddForm extends javax.swing.JPanel {
 
     JPanel home;
+    String type,obj;
+    int t_id, o_id,i_id=1;
+    String barcode;
+    Random rdm = new Random();
+    Connection c;
 
     /**
      * Creates new form TMenu
@@ -33,35 +41,68 @@ public class TAddForm extends javax.swing.JPanel {
     public TAddForm(JPanel p) {
         initComponents();
         home = p;
+        //hides added new item message
+        lblCongrats.setText("");
+        lblName.setText("");
+        lblBarcode.setText("");
         String type;
         String object;
         Connection c = StudentPanels.Database.connectDB();
         if (c == null) System.exit(-1); 
         Statement stmt; 
         ResultSet rs; 
-            //int text text boolean
+        //these try catch statements allow the types and objects to appear
         try { 
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM type"); 
-            while (rs.next()==true) { 
+            while (rs.next()) { 
                 type = rs.getString("name");
                 cbType.addItem(type);
                 //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip");
+            System.out.println(e.getMessage()+"\nrip");
         }
         try { 
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM object"); 
-            while (rs.next()==true) { 
+            while (rs.next()) { 
                 object = rs.getString("name");
                 cbObject.addItem(object);
                 //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip");
+            System.out.println(e.getMessage()+"\nrip");
         }
     }
-
+    
+    public String genBarcode(){
+        Statement stmt;
+        ResultSet rs;
+        String bc = "";
+        boolean exist;
+        do{
+            //randomly generate barcode
+            for(int i=0; i<10; i++){
+                int num = rdm.nextInt(10);
+                bc = bc+num;
+            }
+            exist = false;
+            //check if bc exists
+            try {
+                stmt = c.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM item");
+                do{
+                    if(rs.getString(barcode).equals(bc)){
+                        exist = true;
+                    }
+                }while(rs.next());
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAddForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }while (exist==true);
+        return bc;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,6 +177,11 @@ public class TAddForm extends javax.swing.JPanel {
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAdd.setText("Add item");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -157,7 +203,7 @@ public class TAddForm extends javax.swing.JPanel {
                             .addComponent(lblCongrats))))
                 .addContainerGap(195, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 320, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,11 +258,17 @@ public class TAddForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
+    private void cbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTypeActionPerformed
+        
+    }//GEN-LAST:event_cbTypeActionPerformed
+
+    private void cbTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbTypeMouseClicked
+        
+    }//GEN-LAST:event_cbTypeMouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         //add type and object to DB
-        String type = tfNewType.getText();
-        String object = tfNewObject.getText();
-        Connection c = StudentPanels.Database.connectDB();
+        c = StudentPanels.Database.connectDB();
         if (c == null) 
             System.exit(-1); 
         Statement stmt; 
@@ -224,6 +276,7 @@ public class TAddForm extends javax.swing.JPanel {
         //data types are: int text text boolean
         if(cbType.getSelectedIndex()==0){
             try { 
+                type = tfNewType.getText();
                 stmt = c.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM type"); 
                 String q = "insert into type(t_id,name) values(DEFAULT,?)";
@@ -234,31 +287,77 @@ public class TAddForm extends javax.swing.JPanel {
                 System.out.println("Boop");
                 rs.close();
             }} catch (SQLException e) {
-                System.out.println(e.getMessage()+"\n rip");
+                System.out.println(e.getMessage()+"\nrip");
             }
         }
+        else{
+            type = (String)cbType.getSelectedItem();
         if(cbObject.getSelectedIndex()==0){
             try { 
+                obj = tfNewObject.getText();
                 stmt = c.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM object"); 
-                String q = "insert into object(o_id,t_id,name) values(DEFAULT,DEFAULT,?)";
+                rs = stmt.executeQuery("SELECT * FROM type"); 
+                //determines ID of the selected type
+                while(rs.next()){
+                    if(rs.getString("name").equals(type))
+                        t_id = rs.getInt("t_id");
+                }
+                System.out.println("t_id: "+t_id);
+                String q = "insert into object(o_id,t_id,name) values(DEFAULT,?,?)";
                 PreparedStatement pstmt = c.prepareStatement(q); {
-                pstmt.setString(3,object);
-                pstmt.executeUpdate();
-                System.out.println("Boop");
-            }} catch (SQLException e) {
-                System.out.println(e.getMessage()+"\n rip");
+                    pstmt.setInt(1, t_id);
+                    pstmt.setString(2,obj);
+                    pstmt.executeUpdate();
+                    System.out.println("Boop");
+                }
+                rs.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage()+"\nrip");
             }
         }
-    }                                      
-
-    private void cbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTypeActionPerformed
-        
-    }//GEN-LAST:event_cbTypeActionPerformed
-
-    private void cbTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbTypeMouseClicked
-        
-    }//GEN-LAST:event_cbTypeMouseClicked
+        else{
+            obj = (String)cbObject.getSelectedItem();
+        }
+        //add item to db and write it to screen
+        try {  
+                stmt = c.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM object"); 
+                while(rs.next()){
+                    if(rs.getString("name").equals(obj))
+                        o_id = rs.getInt("o_id");
+                }
+                rs.close();
+                rs = stmt.executeQuery("SELECT * FROM item"); 
+                //gets last item ID in database
+                while(rs.next()){
+                    i_id = rs.getInt("i_id");
+                }
+                rs.close();
+                //gets next ID number to assign to new item
+                i_id = i_id+1;
+                System.out.println("i_id of new item: "+i_id);
+                barcode = genBarcode();
+                String q = "insert into item(barcode,i_id,o_id,t_id,name,active) values(?,?,?,?,?,?)";
+                PreparedStatement pstmt = c.prepareStatement(q); {
+                    pstmt.setString(1, barcode);
+                    pstmt.setInt(2, i_id);
+                    pstmt.setInt(3,o_id);
+                    pstmt.setInt(4,t_id);
+                    pstmt.setString(5, obj+" "+i_id);
+                    pstmt.setBoolean(6, true);
+                    pstmt.executeUpdate();
+                    System.out.println("Boop");
+                }
+                rs.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage()+"\nrip");
+            }
+        //added new item message appears
+        lblCongrats.setText("Congratulations! You added a new item!");
+        lblName.setText("Name: "+obj+" "+i_id);
+        lblBarcode.setText("Barcode #: "+barcode);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

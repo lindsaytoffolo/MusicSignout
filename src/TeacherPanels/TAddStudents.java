@@ -128,12 +128,10 @@ JPanel home;
             if (c == null)
                 System.exit(-1);
             Statement stmt;
-            ResultSet rs;
             //data types are: int text text boolean
             while(sc.hasNext()){
             try {
                 stmt = c.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM student");
                 String q = "insert into student(id,fname,lname,active) values(?,?,?,?)";
                 String ln = sc.nextLine();
                 String [] info = ln.split(",");
@@ -150,7 +148,7 @@ JPanel home;
             System.out.println("Done");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TAddStudents.class.getName()).log(Level.SEVERE, null, ex);
-        }// TODO add your handling code here:
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
 

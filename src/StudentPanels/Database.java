@@ -33,14 +33,14 @@ public class Database {
             //int text text boolean
         try { 
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM type"); 
+            rs = stmt.executeQuery("SELECT * FROM object"); 
             // Now do something with the ResultSet .... 
             while (rs.next()==true) { 
-                String object = rs.getString("name");
-                System.out.println(object); 
+                String fNam = rs.getString("name");
+                System.out.println(fNam);
                 //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip");
+            System.out.println(e.getMessage()+"\nrip");
         }
     }
     
@@ -49,20 +49,19 @@ public class Database {
         if (c == null) 
             System.exit(-1); 
         Statement stmt; 
-        ResultSet rs; 
         //data types are: int text text boolean
         try { 
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM object"); 
-            String q = "insert into object(o_id,t_id,name) values(?,?,?)";
+            String q = "insert into student(id,fname,lname,active) values(?,?,?,?)";
             PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setInt(1,1);
-            pstmt.setInt(2,1);
-            pstmt.setString(3, "Flute");
+            pstmt.setString(1,"222222222");
+            pstmt.setString(2,"Emily");
+            pstmt.setString(3, "Anas");
+            pstmt.setBoolean(4, true);
             pstmt.executeUpdate();
             System.out.println("Boop");
         }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip");
+            System.out.println(e.getMessage()+"\nrip");
         }
     }
 }

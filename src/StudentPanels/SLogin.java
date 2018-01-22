@@ -98,9 +98,7 @@ private static String fNam, lNam, id;
         System.out.println("CLICKED");
         boolean exists = false;
         int count = 0;
-        String key = tfBarcode.getText().substring(1,10);
-        
-        
+        String key = tfBarcode.getText().substring(1,10);  
         Connection c = Database.connectDB(); 
         if (c == null) System.exit(-1); 
         System.out.println("Connected!");
@@ -120,16 +118,13 @@ private static String fNam, lNam, id;
         } 
             if(exists==true){
                 System.out.println("student exists in DB");
-                System.out.println(rs.getString("fname"));
-                fNam = rs.getString("fname");
-                lNam = rs.getString("lname");
+                SLogin.fNam = rs.getString("fname");
+                SLogin.lNam = rs.getString("lname");
+                System.out.println(fNam+" "+lNam);
                 tfBarcode.setText("");
                 CardLayout cl = (CardLayout) home.getLayout();
                 cl.show(home, "menu");
-                     
                 //JOptionPane.showMessageDialog(null,"Welcome "+s.toString()+"!");
-                String fNam = rs.getString("fname");
-                String lNam = rs.getString("lname");
                 //JOptionPane.showMessageDialog(null,"Welcome "+lNam+", "+fNam+"!");
             }
             else{
@@ -159,7 +154,7 @@ private static String fNam, lNam, id;
     public static String getfNam() {
         return fNam;
     }
-
+    
     /**
      * @return the lNam
      */

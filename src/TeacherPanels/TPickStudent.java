@@ -1,6 +1,10 @@
 package TeacherPanels;
 
 import java.awt.CardLayout;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JPanel;
 
 /*
@@ -14,6 +18,8 @@ import javax.swing.JPanel;
  */
 public class TPickStudent extends javax.swing.JPanel {
 JPanel home;
+String fNam, lNam;
+private String stuNum="";
 
     /**
      * Creates new form TMenu
@@ -182,13 +188,33 @@ JPanel home;
     }//GEN-LAST:event_tfStudentNumActionPerformed
 
     private void btnFindStudNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindStudNameActionPerformed
-        //history of student with first name tfFName.getText() and last name tfLName.getText()
-        // TODO add your handling code here:
+        fNam = tfFName.getText();
+        lNam = tfLName.getText();
+        setStuNum("");
+        Connection c = StudentPanels.Database.connectDB();
+        if (c == null) 
+            System.exit(-1); 
+        Statement stmt; 
+        ResultSet rs; 
+        //these try catch statements allow the types and objects to appear
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM student"); 
+            do { 
+                if(fNam.equals(rs.getString("fname")) && lNam.equals(rs.getString("lname"))){
+                    setStuNum(rs.getString("id"));
+                }
+                //System.out.println(rs.getObject(1));
+            } while (rs.next());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+        //switch to student history panel (CardLayout)
     }//GEN-LAST:event_btnFindStudNameActionPerformed
 
     private void btnFindStudNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindStudNumActionPerformed
-        //history of student with id tfBarcode.getText()
-        // TODO add your handling code here:
+        setStuNum(tfStudentNum.getText());
+        //switch to student history panel (CardLayout)       
     }//GEN-LAST:event_btnFindStudNumActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -197,7 +223,20 @@ JPanel home;
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
+/**
+     * @return the stuNum
+     */
+    public String getStuNum() {
+        return stuNum;
+    }
 
+    /**
+     * @param stuNum the stuNum to set
+     */
+    public void setStuNum(String stuNum) {
+        this.stuNum = stuNum;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnFindStudName;

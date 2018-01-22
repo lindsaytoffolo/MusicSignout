@@ -82,10 +82,10 @@
                   <Component id="cbItem" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblItem" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="25" pref="270" max="32767" attributes="0"/>
+              <EmptySpace min="25" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="707" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBack" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
