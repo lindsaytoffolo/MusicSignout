@@ -1,6 +1,17 @@
 package StudentPanels;
 
+import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JPanel;
 
 /*
@@ -59,6 +70,11 @@ public class SSignOut extends javax.swing.JPanel {
 
         tfSignout.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         tfSignout.setText("Sign out");
+        tfSignout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSignoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -102,6 +118,60 @@ public class SSignOut extends javax.swing.JPanel {
         cl.show(home, "menu");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void tfSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSignoutActionPerformed
+        String barcode = tfBarcode.getText();
+        String id = SLogin.getid();
+        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        Date now = new Date(cal.getTimeInMillis());
+        //String sodate = df.format(cal.getTime());
+        Timestamp sts = new Timestamp(now.getTime());
+        Timestamp rts = new Timestamp(0,0,0,0,0,0,0);
+        
+        Connection c = Database.connectDB(); 
+        if (c == null) 
+            System.exit(-1); 
+        Statement stmt; 
+        //data types are: int text text boolean
+        try { 
+            stmt = c.createStatement();
+            String q = "insert into history(sodate,s_id,i_bc,return_date) values(?,?,?,?)";
+            PreparedStatement pstmt = c.prepareStatement(q); {
+            pstmt.setTimestamp(1, sts);
+            pstmt.setString(2,id);
+            pstmt.setString(3, barcode);
+            pstmt.setTimestamp(4,rts);
+            pstmt.executeUpdate();
+            
+            System.out.println("Boop");
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\n rip");
+        }
+
+        if (c == null) System.exit(-1); 
+
+        ResultSet rs; 
+            //int text text boolean
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM history"); 
+            // Now do something with the ResultSet .... 
+            while (rs.next()==true) { 
+                Timestamp so = rs.getTimestamp("sodate");
+                String sid = rs.getString("s_id");
+                String ibc = rs.getString("i_bc");
+                Timestamp ret = rs.getTimestamp("return_date");
+                System.out.println(so);
+                System.out.println(sid);
+                System.out.println(ibc);
+                System.out.println(ret);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSignoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

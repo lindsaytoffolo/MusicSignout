@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  */
 public class SLogin extends javax.swing.JPanel {
 JPanel home;
-public static String fNam, lNam;
+private static String fNam, lNam, id;
     /**
      * Creates new form SLogin
      */
@@ -110,7 +110,7 @@ public static String fNam, lNam;
             rs = stmt.executeQuery("SELECT * FROM student"); 
             // Now do something with the ResultSet .... 
             while(rs.next()==true && exists==false) { 
-                String id = rs.getString("id");
+                id = rs.getString("id");
                 System.out.println(id+","+key);
                 if(key.equals(id)){
                     exists = true;
@@ -160,5 +160,9 @@ public static String fNam, lNam;
      */
     public static String getlNam() {
         return lNam;
+    }
+    
+    public static String getid(){
+        return id;
     }
 }

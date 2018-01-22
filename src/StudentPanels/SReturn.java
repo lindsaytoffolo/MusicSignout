@@ -1,6 +1,15 @@
 package StudentPanels;
 
+import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import javax.swing.JPanel;
 
 /*
@@ -57,6 +66,11 @@ public class SReturn extends javax.swing.JPanel {
 
         btnReturn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnReturn.setText("Return");
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -98,6 +112,62 @@ public class SReturn extends javax.swing.JPanel {
         cl.show(home, "menu");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        String barcode = tfBarcode.getText();
+        String id = SLogin.getid();
+        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        Date now = new Date(cal.getTimeInMillis());
+        //String sodate = df.format(cal.getTime());
+        Timestamp sts = new Timestamp(now.getTime());
+        Timestamp rts = new Timestamp(0, 0, 0, 0, 0, 0, 0);
+
+        Connection c = connectDB();
+        if (c == null) {
+            System.exit(-1);
+        }
+        Statement stmt;
+        ResultSet rs;
+        //int text text boolean
+            try {
+                stmt = c.createStatement();
+                String q = ("UPDATE history SET return_date = '"+sts+"' WHERE return_date = '" + rts + "' AND s_id = '" + id + "' AND i_bc = '" + barcode+"'");
+                PreparedStatement pstmt = c.prepareStatement(q);
+                {
+                    //pstmt.setTimestamp(1, sts);
+                    pstmt.executeUpdate();
+                    System.out.println("Boopity doop");
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage() + "\nrip");
+            }
+            if (c == null) System.exit(-1); 
+
+
+            //int text text boolean
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM history"); 
+            // Now do something with the ResultSet .... 
+            while (rs.next()==true) { 
+                Timestamp so = rs.getTimestamp("sodate");
+                String sid = rs.getString("s_id");
+                String ibc = rs.getString("i_bc");
+                Timestamp ret = rs.getTimestamp("return_date");
+                System.out.println(so);
+                System.out.println(sid);
+                System.out.println(ibc);
+                System.out.println(ret);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+
+                //System.out.println(rs.getObject(1));
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReturnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
