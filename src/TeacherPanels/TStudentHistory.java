@@ -1,6 +1,13 @@
 package TeacherPanels;
 
 import java.awt.CardLayout;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /*
@@ -15,6 +22,9 @@ import javax.swing.JPanel;
 public class TStudentHistory extends javax.swing.JPanel {
 
     JPanel home;
+    String sNum, bc;
+    Timestamp so,si;
+    int ln;
 
     /**
      * Creates new form TMenu
@@ -26,6 +36,7 @@ public class TStudentHistory extends javax.swing.JPanel {
     public TStudentHistory(JPanel p) {
         initComponents();
         home = p;
+        checkStudent();
     }
 
     /**
@@ -73,7 +84,42 @@ public class TStudentHistory extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-
+    public void checkStudent(){
+        //sNum = TPickStudent.getStuNum();
+        //for testing purposes 
+        sNum = "073853186";
+        Connection c = StudentPanels.Database.connectDB();
+        if (c == null) 
+            System.exit(-1); 
+        Statement stmt; 
+        ResultSet rs; 
+        ln = 0;
+        //these try catch statements allow the types and objects to appear
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM history"); 
+            String fdo = new SimpleDateFormat("yyyyMMdd").format(rs.getTimestamp("sodate"));
+            String fdi = new SimpleDateFormat("yyyyMMdd").format(rs.getTimestamp("return_date"));
+            do { 
+                if(sNum.equals(rs.getString("student"))){
+                    JLabel stuNumber = new JLabel(rs.getString("student"));
+                    JLabel signOut = new JLabel(fdo);
+                    JLabel signIn = new JLabel(fdi);
+                    JLabel barcode = new JLabel(rs.getString("i_barcode"));
+                    JLabel [] labels = {stuNumber,barcode,signOut,signIn};
+                    for(int i = 0; i<4; i++){
+                        add(labels[i]);
+                        labels[i].setLocation(20+(20*i), ln);
+                    }
+                    ln = ln+20;
+                }
+                //System.out.println(rs.getObject(1));
+            } while (rs.next());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     // End of variables declaration//GEN-END:variables

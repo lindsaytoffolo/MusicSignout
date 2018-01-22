@@ -31,8 +31,7 @@ public class TeacherJFrame extends javax.swing.JFrame {
         jPanel1.add(new TRemoveForm(jPanel1), "removeItem");
         jPanel1.add(new TStudentHistory(jPanel1), "studHist");
         jPanel1.add(new TAddStudents(jPanel1), "addStuds");
-        cl.show(jPanel1, "login");
-        
+        cl.show(jPanel1, "login");        
     }
 
     /**

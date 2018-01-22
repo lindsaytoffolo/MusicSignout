@@ -26,6 +26,7 @@ public class SMenu extends javax.swing.JPanel {
     public SMenu(JPanel p) {
         initComponents();
         home = p;
+        System.out.println(SLogin.getfNam());
         String welcomeMessage = "Welcome " + SLogin.getfNam() + " " + SLogin.getlNam();
         lblWelcome.setText(welcomeMessage);
     }
