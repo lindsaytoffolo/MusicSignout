@@ -130,35 +130,42 @@ public class SReturn extends javax.swing.JPanel {
         Statement stmt;
         ResultSet rs;
         //int text text boolean
-        try {
-            stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM history");
-            // Now do something with the ResultSet .... 
-            while (rs.next() == true) {
-                if (rs.getTimestamp("return_date") == rts) {
-                    if (rs.getString("s_id").equals(id)) {
-                        if (rs.getString("i_bc").equals(barcode)) {
-                            try {
-                                stmt = c.createStatement();
-                                String q = ("UPDATE history SET return_date = ? WHERE column_5 = " + item + " LIMIT 1");
-                                PreparedStatement pstmt = c.prepareStatement(q);
-                                {
-                                    pstmt.setBoolean(1, false);
-                                    pstmt.executeUpdate();
-                                    System.out.println("Boop");
-                                }
-                            } catch (SQLException e) {
-                                System.out.println(e.getMessage() + "\nrip");
-                            }
-                        }
-                    }
+            try {
+                stmt = c.createStatement();
+                String q = ("UPDATE history SET return_date = '"+sts+"' WHERE return_date = '" + rts + "' AND s_id = '" + id + "' AND i_bc = '" + barcode+"'");
+                PreparedStatement pstmt = c.prepareStatement(q);
+                {
+                    //pstmt.setTimestamp(1, sts);
+                    pstmt.executeUpdate();
+                    System.out.println("Boopity doop");
                 }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage() + "\nrip");
+            }
+            if (c == null) System.exit(-1); 
+
+
+            //int text text boolean
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM history"); 
+            // Now do something with the ResultSet .... 
+            while (rs.next()==true) { 
+                Timestamp so = rs.getTimestamp("sodate");
+                String sid = rs.getString("s_id");
+                String ibc = rs.getString("i_bc");
+                Timestamp ret = rs.getTimestamp("return_date");
+                System.out.println(so);
+                System.out.println(sid);
+                System.out.println(ibc);
+                System.out.println(ret);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
 
                 //System.out.println(rs.getObject(1));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage() + "\nrip");
-        }
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReturnActionPerformed
 

@@ -148,6 +148,28 @@ public class SSignOut extends javax.swing.JPanel {
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\n rip");
         }
+
+        if (c == null) System.exit(-1); 
+
+        ResultSet rs; 
+            //int text text boolean
+        try { 
+            stmt = c.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM history"); 
+            // Now do something with the ResultSet .... 
+            while (rs.next()==true) { 
+                Timestamp so = rs.getTimestamp("sodate");
+                String sid = rs.getString("s_id");
+                String ibc = rs.getString("i_bc");
+                Timestamp ret = rs.getTimestamp("return_date");
+                System.out.println(so);
+                System.out.println(sid);
+                System.out.println(ibc);
+                System.out.println(ret);
+                //System.out.println(rs.getObject(1));
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSignoutActionPerformed
 
