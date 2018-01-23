@@ -30,18 +30,25 @@ public class Database {
         if (c == null) System.exit(-1); 
         Statement stmt; 
         ResultSet rs; 
+        int count = 0;
             //int text text boolean
         try { 
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM object"); 
+            rs = stmt.executeQuery("SELECT * FROM item"); 
             // Now do something with the ResultSet .... 
             while (rs.next()==true) { 
-                String fNam = rs.getString("name");
-                System.out.println(fNam);
+                System.out.println(rs.getString("barcode"));
+                System.out.println(rs.getInt("i_id"));
+                System.out.println(rs.getInt("o_id"));
+                System.out.println(rs.getInt("t_id"));
+                System.out.println(rs.getString("name"));
+                System.out.println(rs.getBoolean("active"));
+                count++;
                 //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
+        System.out.println("Count: "+count);
     }
     
     public static void addDB(){
@@ -52,12 +59,13 @@ public class Database {
         //data types are: int text text boolean
         try { 
             stmt = c.createStatement();
-            String q = "insert into student(id,fname,lname,active) values(?,?,?,?)";
+            String q = "insert into item(barcode,i_id,o_id,t_id,name,active) values(?,DEFAULT,?,?,?,?)";
             PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setString(1,"222222222");
-            pstmt.setString(2,"Emily");
-            pstmt.setString(3, "Anas");
-            pstmt.setBoolean(4, true);
+            pstmt.setString(1,"12345");
+            pstmt.setInt(2,1);
+            pstmt.setInt(3, 1);
+            pstmt.setString(4,"Instrument 10");
+            pstmt.setBoolean(5, true);
             pstmt.executeUpdate();
             System.out.println("Boop");
         }} catch (SQLException e) {

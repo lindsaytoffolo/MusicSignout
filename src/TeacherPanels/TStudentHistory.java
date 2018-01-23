@@ -107,6 +107,10 @@ public class TStudentHistory extends javax.swing.JPanel {
                     JLabel signIn = new JLabel(fdi);
                     JLabel barcode = new JLabel(rs.getString("i_barcode"));
                     JLabel [] labels = {stuNumber,barcode,signOut,signIn};
+                    stuNumber.setText("073853186");
+                    signOut.setText("12 june");
+                    signIn.setText("13 june");
+                    barcode.setText("123");
                     for(int i = 0; i<4; i++){
                         add(labels[i]);
                         labels[i].setLocation(20+(20*i), ln);
