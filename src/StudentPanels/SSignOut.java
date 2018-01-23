@@ -1,5 +1,6 @@
 package StudentPanels;
 
+import Frames.StudentJFrame;
 import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,7 +26,22 @@ import javax.swing.JPanel;
  * @author Emily Anas
  */
 public class SSignOut extends javax.swing.JPanel {
+ private static Timestamp sts;
+ private static String barcode, sodate;
 
+    /**
+     * @return the barcode
+     */
+    public static String getBarcode() {
+        return barcode;
+    }
+
+    /**
+     * @return the sodate
+     */
+    public static String getSodate() {
+        return sodate;
+    }
     JPanel home;
 
     /**
@@ -120,13 +137,13 @@ public class SSignOut extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void tfSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSignoutActionPerformed
-        String barcode = tfBarcode.getText();
+        barcode = tfBarcode.getText();
         String id = SLogin.getid();
-        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         Date now = new Date(cal.getTimeInMillis());
-        //String sodate = df.format(cal.getTime());
-        Timestamp sts = new Timestamp(now.getTime());
+        sodate = df.format(cal.getTime());
+        sts = new Timestamp(now.getTime());
         Timestamp rts = new Timestamp(0,0,0,0,0,0,0);
         
         Connection c = Database.connectDB(); 
@@ -138,9 +155,9 @@ public class SSignOut extends javax.swing.JPanel {
             stmt = c.createStatement();
             String q = "insert into history(sodate,s_id,i_bc,return_date) values(?,?,?,?)";
             PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setTimestamp(1, sts);
+            pstmt.setTimestamp(1, getSts());
             pstmt.setString(2,id);
-            pstmt.setString(3, barcode);
+            pstmt.setString(3, getBarcode());
             pstmt.setTimestamp(4,rts);
             pstmt.executeUpdate();
             
@@ -170,6 +187,10 @@ public class SSignOut extends javax.swing.JPanel {
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
+        CardLayout cl = (CardLayout) home.getLayout();
+        StudentJFrame topFrame = (StudentJFrame) SwingUtilities.getWindowAncestor(this);
+        topFrame.ssoc.SOCongratsInit();
+        cl.show(home, "SOcongrats");
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSignoutActionPerformed
 
@@ -180,4 +201,11 @@ public class SSignOut extends javax.swing.JPanel {
     private javax.swing.JTextField tfBarcode;
     private javax.swing.JButton tfSignout;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the sts
+     */
+    public static Timestamp getSts() {
+        return sts;
+    }
 }
