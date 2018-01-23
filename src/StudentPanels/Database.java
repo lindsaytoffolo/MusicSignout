@@ -37,11 +37,6 @@ public class Database {
             rs = stmt.executeQuery("SELECT * FROM item"); 
             // Now do something with the ResultSet .... 
             while (rs.next()==true) { 
-                System.out.println(rs.getString("barcode"));
-                System.out.println(rs.getInt("i_id"));
-                System.out.println(rs.getInt("o_id"));
-                System.out.println(rs.getInt("t_id"));
-                System.out.println(rs.getString("name"));
                 System.out.println(rs.getBoolean("active"));
                 count++;
                 //System.out.println(rs.getObject(1));
@@ -69,6 +64,20 @@ public class Database {
             pstmt.executeUpdate();
             System.out.println("Boop");
         }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip");
+        }
+    }
+    
+    public static void deleteDB(){
+        Connection c = connectDB(); 
+        if (c == null) System.exit(-1); 
+        try {
+            String query = "delete from type";
+            PreparedStatement preparedStmt = c.prepareStatement(query);
+            preparedStmt.execute();
+            /*stmt = c.createStatement();
+            rs = stmt.executeQuery("DELETE * FROM object"); */
+        } catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
     }
