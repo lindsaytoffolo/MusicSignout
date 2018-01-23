@@ -1,3 +1,5 @@
+package Frames;
+
 
 import java.awt.CardLayout;
 import StudentPanels.*;
@@ -13,18 +15,23 @@ import javax.swing.JPanel;
  * @author 072584980
  */
 public class StudentJFrame extends javax.swing.JFrame {
-
+  public SSOCongrats ssoc;
+  public SRetCongrats src; 
     /**
      * Creates new form StudentJFrame
      */
     public StudentJFrame() {
         initComponents();
+        ssoc = new SSOCongrats(jPanel1);
+        src = new SRetCongrats(jPanel1);
         CardLayout cl = new CardLayout();
         jPanel1.setLayout(cl);
         jPanel1.add(new SLogin(jPanel1), "login");
         jPanel1.add(new SMenu(jPanel1), "menu");
         jPanel1.add(new SSignOut(jPanel1), "signout");
         jPanel1.add(new SReturn(jPanel1), "return");
+        jPanel1.add(ssoc, "SOcongrats");
+        jPanel1.add(src, "retcongrats");
         cl.show(jPanel1, "login");
     }
 

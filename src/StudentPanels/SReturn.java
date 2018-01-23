@@ -1,5 +1,6 @@
 package StudentPanels;
 
+import Frames.StudentJFrame;
 import static StudentPanels.Database.connectDB;
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -9,8 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,7 +26,29 @@ import javax.swing.JPanel;
  * @author Emily Anas
  */
 public class SReturn extends javax.swing.JPanel {
+private static Timestamp sts;
+ private static String barcode, retDate;
 
+    /**
+     * @return the sts
+     */
+    public static Timestamp getSts() {
+        return sts;
+    }
+
+    /**
+     * @return the barcode
+     */
+    public static String getBarcode() {
+        return barcode;
+    }
+
+    /**
+     * @return the retDate
+     */
+    public static String getRetDate() {
+        return retDate;
+    }
     JPanel home;
 
     /**
@@ -114,13 +140,13 @@ public class SReturn extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        String barcode = tfBarcode.getText();
+        barcode = tfBarcode.getText();
         String id = SLogin.getid();
-        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         Date now = new Date(cal.getTimeInMillis());
-        //String sodate = df.format(cal.getTime());
-        Timestamp sts = new Timestamp(now.getTime());
+        retDate = df.format(cal.getTime());
+        sts = new Timestamp(now.getTime());
         Timestamp rts = new Timestamp(0, 0, 0, 0, 0, 0, 0);
 
         Connection c = connectDB();
@@ -132,7 +158,7 @@ public class SReturn extends javax.swing.JPanel {
         //int text text boolean
             try {
                 stmt = c.createStatement();
-                String q = ("UPDATE history SET return_date = '"+sts+"' WHERE return_date = '" + rts + "' AND s_id = '" + id + "' AND i_bc = '" + barcode+"'");
+                String q = ("UPDATE history SET return_date = '"+getSts()+"' WHERE return_date = '" + rts + "' AND s_id = '" + id + "' AND i_bc = '" + getBarcode()+"'");
                 PreparedStatement pstmt = c.prepareStatement(q);
                 {
                     //pstmt.setTimestamp(1, sts);
@@ -163,6 +189,10 @@ public class SReturn extends javax.swing.JPanel {
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
+        CardLayout cl = (CardLayout) home.getLayout();
+        StudentJFrame topFrame = (StudentJFrame) SwingUtilities.getWindowAncestor(this);
+        topFrame.src.RetCongratsInit();  
+        cl.show(home, "retcongrats");
 
                 //System.out.println(rs.getObject(1));
 
