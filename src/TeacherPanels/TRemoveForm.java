@@ -211,14 +211,14 @@ public class TRemoveForm extends javax.swing.JPanel {
         if (c == null) 
             System.exit(-1); 
         Statement stmt; 
+        boolean act = false;
         //data types are: int text text boolean
         try { 
             stmt = c.createStatement();
-            String q = ("UPDATE item SET active = ? WHERE column_5 = "+item+" LIMIT 1");
+            String q = ("UPDATE item SET active = "+act+" WHERE name = '" + item + "' ");
             PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setBoolean(1,false);
             pstmt.executeUpdate();
-            System.out.println("Boop");
+            System.out.println("Booply");
         }} catch (SQLException e) {
             System.out.println(e.getMessage()+"\nrip");
         }
