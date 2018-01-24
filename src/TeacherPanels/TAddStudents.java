@@ -24,7 +24,7 @@ import javax.swing.JPanel;
  * @author 072584980
  */
 public class TAddStudents extends javax.swing.JPanel {
-JPanel home;
+private JPanel home;
 
     /**
      * Creates new form TMenu
@@ -114,27 +114,33 @@ JPanel home;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        CardLayout cl = (CardLayout) home.getLayout();
-        cl.show(home, "menu");
+        CardLayout cl = (CardLayout) getHome().getLayout();
+        cl.show(getHome(), "menu");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {                                         
-            File file = new File(tfFile.getText());
-            //"StudentInfoStuffs.txt"
+            //file is set to the file the teacher (hopefully) entered
+            File file = new File(getTfFile().getText());
+            //"StudentInfoStuffs.txt" = name of test file in folder
+            //intializaiton an declaration of scanner used to read from file
             Scanner sc = new Scanner(file);
             Connection c = connectDB();
             if (c == null)
                 System.exit(-1);
             Statement stmt;
-            //data types are: int text text boolean
+            //runs while there is still info to read in the file
             while(sc.hasNext()){
-            try {
+                //enters student info into DB line per line from the file
+                try {
                 stmt = c.createStatement();
                 String q = "insert into student(id,fname,lname,active) values(?,?,?,?)";
+                //reads line from file
                 String ln = sc.nextLine();
+                //splits info from line into array
                 String [] info = ln.split(",");
+                //write wanted info from file into DB
                 PreparedStatement pstmt = c.prepareStatement(q); {
                 pstmt.setString(1, info[0]);
                 pstmt.setString(2, info[1]);
@@ -158,4 +164,74 @@ JPanel home;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JTextField tfFile;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the home
+     */
+    public JPanel getHome() {
+        return home;
+    }
+
+    /**
+     * @param home the home to set
+     */
+    public void setHome(JPanel home) {
+        this.home = home;
+    }
+
+    /**
+     * @return the btnAdd
+     */
+    public javax.swing.JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    /**
+     * @param btnAdd the btnAdd to set
+     */
+    public void setBtnAdd(javax.swing.JButton btnAdd) {
+        this.btnAdd = btnAdd;
+    }
+
+    /**
+     * @return the btnBack
+     */
+    public javax.swing.JButton getBtnBack() {
+        return btnBack;
+    }
+
+    /**
+     * @param btnBack the btnBack to set
+     */
+    public void setBtnBack(javax.swing.JButton btnBack) {
+        this.btnBack = btnBack;
+    }
+
+    /**
+     * @return the lblHeader
+     */
+    public javax.swing.JLabel getLblHeader() {
+        return lblHeader;
+    }
+
+    /**
+     * @param lblHeader the lblHeader to set
+     */
+    public void setLblHeader(javax.swing.JLabel lblHeader) {
+        this.lblHeader = lblHeader;
+    }
+
+    /**
+     * @return the tfFile
+     */
+    public javax.swing.JTextField getTfFile() {
+        return tfFile;
+    }
+
+    /**
+     * @param tfFile the tfFile to set
+     */
+    public void setTfFile(javax.swing.JTextField tfFile) {
+        this.tfFile = tfFile;
+    }
 }

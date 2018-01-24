@@ -24,12 +24,15 @@ import javax.swing.JPanel;
  */
 public class TAddForm extends javax.swing.JPanel {
 
-    JPanel home;
-    String type="",obj="";
-    int t_id=0, o_id=0,i_id=0;
-    String barcode="0";
-    Random rdm = new Random();
-    Connection c;
+    private JPanel home;
+    private String type="";
+    private String obj = "";
+    private int t_id = 0;
+    private int o_id = 0;
+    private int i_id = 0;
+    private String barcode = "0";
+    private Random rdm = new Random();
+    private Connection c;
 
     /**
      * Creates new form TMenu
@@ -83,29 +86,27 @@ public class TAddForm extends javax.swing.JPanel {
         do{
             //randomly generate barcode
             for(int i=0; i<10; i++){
-                int num = rdm.nextInt(10);
+                int num = getRdm().nextInt(10);
                 bc = bc+num;
             }
             exist = false;
             //check if bc exists
             try {
-            stmt = c.createStatement();
+            stmt = getC().createStatement();
             rs = stmt.executeQuery("SELECT * FROM item"); 
-            // Now do something with the ResultSet .... 
             while (rs.next()==true) { 
                 String bar = rs.getString("barcode");
                 if(bar.equals(bc)){
                     exist=true;
                 }
-                System.out.println("Gen bc: "+bc);
-                System.out.println("Bc in table"+bar);
-                System.out.println("exist: "+exist);
             }
             rs.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage()+"\nrip");
             }
+            //method will keep generating barcodes until it comes up with one that doesn't already exist
             }while (exist==true);
+        //return generated barcodee
         return bc;
     }
     
@@ -259,8 +260,8 @@ public class TAddForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        CardLayout cl = (CardLayout) home.getLayout();
-        cl.show(home, "menu");
+        CardLayout cl = (CardLayout) getHome().getLayout();
+        cl.show(getHome(), "menu");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -272,110 +273,108 @@ public class TAddForm extends javax.swing.JPanel {
         
     }//GEN-LAST:event_cbTypeMouseClicked
 
+    //add item button pressed
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        //add type and object to DB
-        c = StudentPanels.Database.connectDB();
-        if (c == null) 
+        //connection and DB set up jazz
+        setC(StudentPanels.Database.connectDB());
+        if (getC() == null) 
             System.exit(-1);
         Statement stmt; 
         ResultSet rs; 
-        //adds new type and type ID to DB
-        if(cbType.getSelectedIndex()==0){
+        
+        //sets type to entered type and adds new type to DB
+        if(getCbType().getSelectedIndex()==0){
             try { 
-                type = tfNewType.getText();
+                setType(getTfNewType().getText());
                 String q = "insert into type(t_id,name) values(DEFAULT,?)";
-                PreparedStatement pstmt = c.prepareStatement(q); {
-                pstmt.setString(1,type);
+                PreparedStatement pstmt = getC().prepareStatement(q); {
+                pstmt.setString(1, getType());
                 pstmt.executeUpdate();
                 System.out.println("Boop");
             }} catch (SQLException e) {
                 System.out.println(e.getMessage()+"\nrip");
             }
         }
+        
+        //sets type to selected type
         else{
-            type = (String)cbType.getSelectedItem();
+            setType((String) getCbType().getSelectedItem());
         }
-        //when new object is entered
-        if(cbObject.getSelectedIndex()==0){
-            try { 
-                t_id = 0;
-                obj = tfNewObject.getText();
-                stmt = c.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM type"); 
-                //determines ID of the selected type
-                while(rs.next() && t_id==0){
-                    String tableType = rs.getString("name");
-                    if(tableType.equals(type)){
-                        t_id = rs.getInt("t_id");
-                    }
+        
+        //reset type ID
+        setT_id(0);
+        int count = 0;
+        
+        //determines type ID
+        try { 
+            stmt = getC().createStatement();
+            rs = stmt.executeQuery("SELECT * FROM type"); 
+            //determines ID of the selected type
+            while(rs.next() && getT_id()==0){
+                count++;
+                String tableType = rs.getString("name");
+                if(tableType.equals(getType())){
+                    setT_id(getT_id() + 1);
                 }
-                //don't ask bc idk
-                t_id = t_id-2;
-                rs.close();
-                //adds new object, object ID, and type ID to DB
-                String q = "insert into object(o_id,t_id,name) values(DEFAULT,?,?)";
-                PreparedStatement pstmt = c.prepareStatement(q); {
-                    pstmt.setInt(1,t_id);
-                    pstmt.setString(2,obj);
-                    pstmt.executeUpdate();
-                    System.out.println("Boop");
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage()+"\nrip1");
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip1");
         }
+        setT_id(count);
+        System.out.println("Type ID: "+getT_id());
+        
+        //sets object to entered object
+        if(getCbObject().getSelectedIndex()==0){
+            setObj(getTfNewObject().getText());
+        }
+        
+        //sets object to selected object
         else{
-            try { 
-                t_id = 0;
-                obj = (String)cbObject.getSelectedItem();
-                stmt = c.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM type"); 
-                //determines ID of the selected type
-                while(rs.next() && t_id==0){
-                    String tableType = rs.getString("name");
-                    if(tableType.equals(type)){
-                        t_id = rs.getInt("t_id");
-                    }
-                }
-                t_id = t_id-2;
-                rs.close();
-                String q = "insert into object(o_id,t_id,name) values(DEFAULT,?,?)";
-                PreparedStatement pstmt = c.prepareStatement(q); {
-                    pstmt.setInt(1,t_id);
-                    pstmt.setString(2,obj);
-                    pstmt.executeUpdate();
-                    System.out.println("Boop");
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage()+"\nrip2");
-            }
+            setObj((String) getCbObject().getSelectedItem());
         }
-        //add item to db and write it to screen
+        
+        try { 
+            //adds new object, object ID, and type ID to DB
+            String q = "insert into object(o_id,t_id,name) values(DEFAULT,?,?)";
+            PreparedStatement pstmt = getC().prepareStatement(q); {
+                pstmt.setInt(1, getT_id());
+                pstmt.setString(2, getObj());
+                pstmt.executeUpdate();
+                System.out.println("Boop");
+        }} catch (SQLException e) {
+            System.out.println(e.getMessage()+"\nrip1");
+        }
+        
+        //resets o_id and i_id
+        setO_id(0);
+        setI_id(0);
+        
         try {  
-                stmt = c.createStatement();
+                stmt = getC().createStatement();
                 rs = stmt.executeQuery("SELECT * FROM object"); 
+                //determine object ID
                 while(rs.next()){
-                    if(rs.getString("name").equals(obj))
-                        o_id = rs.getInt("o_id");
+                    setO_id(getO_id() + 1);
                 }
                 rs.close();
-                rs = stmt.executeQuery("SELECT * FROM item"); 
-                //gets last item ID in database
+                rs = stmt.executeQuery("SELECT * FROM object"); 
+                //determine item ID
                 while(rs.next()){
-                    i_id = rs.getInt("i_id");
+                    if((rs.getString("name").equals(getObj()))){
+                        setI_id(getI_id() + 1);
+                    }
                 }
                 rs.close();
-                //gets next ID number to assign to new item
-                i_id = i_id+1;
-                System.out.println("i_id of new item: "+i_id);
-                barcode = genBarcode();
+                System.out.println("i_id of new item: "+getI_id());
+                setBarcode(genBarcode());
+                //enters item info into item table
                 String q = "insert into item(barcode,i_id,o_id,t_id,name,active) values(?,?,?,?,?,?)";
-                PreparedStatement pstmt = c.prepareStatement(q); {
-                    pstmt.setString(1, barcode);
-                    pstmt.setInt(2, i_id);
-                    pstmt.setInt(3,o_id);
-                    pstmt.setInt(4,t_id);
-                    pstmt.setString(5, obj+" "+i_id);
+                PreparedStatement pstmt = getC().prepareStatement(q); {
+                    pstmt.setString(1, getBarcode());
+                    pstmt.setInt(2, getI_id());
+                    pstmt.setInt(3, getO_id());
+                    pstmt.setInt(4, getT_id());
+                    pstmt.setString(5, getObj()+" "+getI_id());
                     pstmt.setBoolean(6, true);
                     pstmt.executeUpdate();
                     System.out.println("Boop");
@@ -385,12 +384,9 @@ public class TAddForm extends javax.swing.JPanel {
                 System.out.println(e.getMessage()+"\nrip");
             }
         //added new item message appears
-        System.out.println("Congratulations! You added a new item!");
-        System.out.println("Name: "+obj+" "+i_id);
-        System.out.println("Barcode #: "+barcode);
-        /*lblCongrats.setText("Congratulations! You added a new item!");
-        lblName.setText("Name: "+obj+" "+i_id);
-        lblBarcode.setText("Barcode #: "+barcode);*/
+        getLblCongrats().setText("Congratulations! You added a new item!");
+        getLblName().setText("Name: "+getObj()+" "+getI_id());
+        getLblBarcode().setText("Barcode #: "+getBarcode());
     }//GEN-LAST:event_btnAddActionPerformed
 
 
@@ -408,4 +404,298 @@ public class TAddForm extends javax.swing.JPanel {
     private javax.swing.JTextField tfNewObject;
     private javax.swing.JTextField tfNewType;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the home
+     */
+    public JPanel getHome() {
+        return home;
+    }
+
+    /**
+     * @param home the home to set
+     */
+    public void setHome(JPanel home) {
+        this.home = home;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the obj
+     */
+    public String getObj() {
+        return obj;
+    }
+
+    /**
+     * @param obj the obj to set
+     */
+    public void setObj(String obj) {
+        this.obj = obj;
+    }
+
+    /**
+     * @return the t_id
+     */
+    public int getT_id() {
+        return t_id;
+    }
+
+    /**
+     * @param t_id the t_id to set
+     */
+    public void setT_id(int t_id) {
+        this.t_id = t_id;
+    }
+
+    /**
+     * @return the o_id
+     */
+    public int getO_id() {
+        return o_id;
+    }
+
+    /**
+     * @param o_id the o_id to set
+     */
+    public void setO_id(int o_id) {
+        this.o_id = o_id;
+    }
+
+    /**
+     * @return the i_id
+     */
+    public int getI_id() {
+        return i_id;
+    }
+
+    /**
+     * @param i_id the i_id to set
+     */
+    public void setI_id(int i_id) {
+        this.i_id = i_id;
+    }
+
+    /**
+     * @return the barcode
+     */
+    public String getBarcode() {
+        return barcode;
+    }
+
+    /**
+     * @param barcode the barcode to set
+     */
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    /**
+     * @return the rdm
+     */
+    public Random getRdm() {
+        return rdm;
+    }
+
+    /**
+     * @param rdm the rdm to set
+     */
+    public void setRdm(Random rdm) {
+        this.rdm = rdm;
+    }
+
+    /**
+     * @return the c
+     */
+    public Connection getC() {
+        return c;
+    }
+
+    /**
+     * @param c the c to set
+     */
+    public void setC(Connection c) {
+        this.c = c;
+    }
+
+    /**
+     * @return the btnAdd
+     */
+    public javax.swing.JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    /**
+     * @param btnAdd the btnAdd to set
+     */
+    public void setBtnAdd(javax.swing.JButton btnAdd) {
+        this.btnAdd = btnAdd;
+    }
+
+    /**
+     * @return the btnBack
+     */
+    public javax.swing.JButton getBtnBack() {
+        return btnBack;
+    }
+
+    /**
+     * @param btnBack the btnBack to set
+     */
+    public void setBtnBack(javax.swing.JButton btnBack) {
+        this.btnBack = btnBack;
+    }
+
+    /**
+     * @return the cbObject
+     */
+    public javax.swing.JComboBox getCbObject() {
+        return cbObject;
+    }
+
+    /**
+     * @param cbObject the cbObject to set
+     */
+    public void setCbObject(javax.swing.JComboBox cbObject) {
+        this.cbObject = cbObject;
+    }
+
+    /**
+     * @return the cbType
+     */
+    public javax.swing.JComboBox getCbType() {
+        return cbType;
+    }
+
+    /**
+     * @param cbType the cbType to set
+     */
+    public void setCbType(javax.swing.JComboBox cbType) {
+        this.cbType = cbType;
+    }
+
+    /**
+     * @return the lblBarcode
+     */
+    public javax.swing.JLabel getLblBarcode() {
+        return lblBarcode;
+    }
+
+    /**
+     * @param lblBarcode the lblBarcode to set
+     */
+    public void setLblBarcode(javax.swing.JLabel lblBarcode) {
+        this.lblBarcode = lblBarcode;
+    }
+
+    /**
+     * @return the lblCongrats
+     */
+    public javax.swing.JLabel getLblCongrats() {
+        return lblCongrats;
+    }
+
+    /**
+     * @param lblCongrats the lblCongrats to set
+     */
+    public void setLblCongrats(javax.swing.JLabel lblCongrats) {
+        this.lblCongrats = lblCongrats;
+    }
+
+    /**
+     * @return the lblHeader
+     */
+    public javax.swing.JLabel getLblHeader() {
+        return lblHeader;
+    }
+
+    /**
+     * @param lblHeader the lblHeader to set
+     */
+    public void setLblHeader(javax.swing.JLabel lblHeader) {
+        this.lblHeader = lblHeader;
+    }
+
+    /**
+     * @return the lblName
+     */
+    public javax.swing.JLabel getLblName() {
+        return lblName;
+    }
+
+    /**
+     * @param lblName the lblName to set
+     */
+    public void setLblName(javax.swing.JLabel lblName) {
+        this.lblName = lblName;
+    }
+
+    /**
+     * @return the lblObject
+     */
+    public javax.swing.JLabel getLblObject() {
+        return lblObject;
+    }
+
+    /**
+     * @param lblObject the lblObject to set
+     */
+    public void setLblObject(javax.swing.JLabel lblObject) {
+        this.lblObject = lblObject;
+    }
+
+    /**
+     * @return the lblType
+     */
+    public javax.swing.JLabel getLblType() {
+        return lblType;
+    }
+
+    /**
+     * @param lblType the lblType to set
+     */
+    public void setLblType(javax.swing.JLabel lblType) {
+        this.lblType = lblType;
+    }
+
+    /**
+     * @return the tfNewObject
+     */
+    public javax.swing.JTextField getTfNewObject() {
+        return tfNewObject;
+    }
+
+    /**
+     * @param tfNewObject the tfNewObject to set
+     */
+    public void setTfNewObject(javax.swing.JTextField tfNewObject) {
+        this.tfNewObject = tfNewObject;
+    }
+
+    /**
+     * @return the tfNewType
+     */
+    public javax.swing.JTextField getTfNewType() {
+        return tfNewType;
+    }
+
+    /**
+     * @param tfNewType the tfNewType to set
+     */
+    public void setTfNewType(javax.swing.JTextField tfNewType) {
+        this.tfNewType = tfNewType;
+    }
 }
