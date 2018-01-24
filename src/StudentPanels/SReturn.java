@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -26,8 +27,9 @@ import javax.swing.SwingUtilities;
  * @author Emily Anas
  */
 public class SReturn extends javax.swing.JPanel {
-private static Timestamp sts;
- private static String barcode, retDate;
+
+    private static Timestamp sts;
+    private static String barcode, retDate;
 
     /**
      * @return the sts
@@ -154,49 +156,21 @@ private static Timestamp sts;
             System.exit(-1);
         }
         Statement stmt;
-        ResultSet rs;
-        //int text text boolean
-            try {
-                stmt = c.createStatement();
-                String q = ("UPDATE history SET return_date = '"+getSts()+"' WHERE return_date = '" + rts + "' AND s_id = '" + id + "' AND i_bc = '" + getBarcode()+"'");
-                PreparedStatement pstmt = c.prepareStatement(q);
-                {
-                    //pstmt.setTimestamp(1, sts);
-                    pstmt.executeUpdate();
-                    System.out.println("Boopity doop");
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage() + "\nrip");
-            }
-            if (c == null) System.exit(-1); 
-
-
-            //int text text boolean
-        try { 
+        try {
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM history"); 
-            // Now do something with the ResultSet .... 
-            while (rs.next()==true) { 
-                Timestamp so = rs.getTimestamp("sodate");
-                String sid = rs.getString("s_id");
-                String ibc = rs.getString("i_bc");
-                Timestamp ret = rs.getTimestamp("return_date");
-                System.out.println(so);
-                System.out.println(sid);
-                System.out.println(ibc);
-                System.out.println(ret);
-                //System.out.println(rs.getObject(1));
-        }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\nrip");
+            String q = ("UPDATE history SET return_date = '" + getSts() + "' WHERE return_date = '" + rts + "' AND s_id = '" + id + "' AND i_bc = '" + getBarcode() + "'");
+            PreparedStatement pstmt = c.prepareStatement(q);
+            {
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong trying to return an item", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
         CardLayout cl = (CardLayout) home.getLayout();
         StudentJFrame topFrame = (StudentJFrame) SwingUtilities.getWindowAncestor(this);
-        topFrame.src.RetCongratsInit();  
+        topFrame.src.RetCongratsInit();
+        tfBarcode.setText("");
         cl.show(home, "retcongrats");
-
-                //System.out.println(rs.getObject(1));
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnReturnActionPerformed
 
 

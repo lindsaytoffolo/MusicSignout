@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -36,27 +37,33 @@ public class SRetCongrats extends javax.swing.JPanel {
         initComponents();
         home = p;
     }
-    
-    public void RetCongratsInit(){
-        Connection c = connectDB(); 
-        if (c == null) System.exit(-1); 
-        Statement stmt; 
-        ResultSet rs; 
-            //int text text boolean
-        try { 
+
+    public void RetCongratsInit() {
+        Connection c = connectDB();
+        if (c == null) {
+            System.exit(-1);
+        }
+        Statement stmt;
+        ResultSet rs;
+        //int text text boolean
+        lblItem.setText("");
+        lblStudent.setText("..... except you didn't");
+        lblRetDate.setText("");
+        try {
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM history"); 
+            rs = stmt.executeQuery("SELECT * FROM history");
             // Now do something with the ResultSet .... 
-            while (rs.next()==true) { 
-                if(SLogin.getid().equals(rs.getString("s_id")) && SReturn.getBarcode().equals(rs.getString("i_bc"))){
+            while (rs.next() == true) {
+                if (SLogin.getid().equals(rs.getString("s_id")) && SReturn.getBarcode().equals(rs.getString("i_bc"))) {
                     lblItem.setText("Item Barcode: " + SReturn.getBarcode());
                     lblStudent.setText("Student ID: " + SLogin.getid());
                     lblRetDate.setText("Returned: " + SReturn.getRetDate());
                     return;
                 }
                 //System.out.println(rs.getObject(1));
-        }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\nrip");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

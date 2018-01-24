@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -26,8 +27,9 @@ import javax.swing.SwingUtilities;
  * @author Emily Anas
  */
 public class SSignOut extends javax.swing.JPanel {
- private static Timestamp sts;
- private static String barcode, sodate;
+
+    private static Timestamp sts;
+    private static String barcode, sodate;
 
     /**
      * @return the barcode
@@ -68,7 +70,7 @@ public class SSignOut extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         lblHeader = new javax.swing.JLabel();
         tfBarcode = new javax.swing.JTextField();
-        tfSignout = new javax.swing.JButton();
+        btnSignout = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 750));
 
@@ -85,11 +87,11 @@ public class SSignOut extends javax.swing.JPanel {
 
         tfBarcode.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        tfSignout.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        tfSignout.setText("Sign out");
-        tfSignout.addActionListener(new java.awt.event.ActionListener() {
+        btnSignout.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnSignout.setText("Sign out");
+        btnSignout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSignoutActionPerformed(evt);
+                btnSignoutActionPerformed(evt);
             }
         });
 
@@ -104,7 +106,7 @@ public class SSignOut extends javax.swing.JPanel {
                         .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(298, 298, 298))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(tfSignout)
+                        .addComponent(btnSignout)
                         .addGap(436, 436, 436))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -123,7 +125,7 @@ public class SSignOut extends javax.swing.JPanel {
                 .addGap(243, 243, 243)
                 .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(tfSignout)
+                .addComponent(btnSignout)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addContainerGap())
@@ -136,7 +138,7 @@ public class SSignOut extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void tfSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSignoutActionPerformed
+    private void btnSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignoutActionPerformed
         barcode = tfBarcode.getText();
         String id = SLogin.getid();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -144,62 +146,43 @@ public class SSignOut extends javax.swing.JPanel {
         Date now = new Date(cal.getTimeInMillis());
         sodate = df.format(cal.getTime());
         sts = new Timestamp(now.getTime());
-        Timestamp rts = new Timestamp(0,0,0,0,0,0,0);
-        
-        Connection c = Database.connectDB(); 
-        if (c == null) 
-            System.exit(-1); 
-        Statement stmt; 
+        Timestamp rts = new Timestamp(0, 0, 0, 0, 0, 0, 0);
+
+        Connection c = Database.connectDB();
+        if (c == null) {
+            System.exit(-1);
+        }
+        Statement stmt;
         //data types are: int text text boolean
-        try { 
+        try {
             stmt = c.createStatement();
             String q = "insert into history(sodate,s_id,i_bc,return_date) values(?,?,?,?)";
-            PreparedStatement pstmt = c.prepareStatement(q); {
-            pstmt.setTimestamp(1, getSts());
-            pstmt.setString(2,id);
-            pstmt.setString(3, getBarcode());
-            pstmt.setTimestamp(4,rts);
-            pstmt.executeUpdate();
-            
-            System.out.println("Boop");
-        }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip");
+            PreparedStatement pstmt = c.prepareStatement(q);
+            {
+                pstmt.setTimestamp(1, getSts());
+                pstmt.setString(2, id);
+                pstmt.setString(3, getBarcode());
+                pstmt.setTimestamp(4, rts);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong trying to sign out an item", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
 
-        if (c == null) System.exit(-1); 
-
-        ResultSet rs; 
-            //int text text boolean
-        try { 
-            stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM history"); 
-            // Now do something with the ResultSet .... 
-            while (rs.next()==true) { 
-                Timestamp so = rs.getTimestamp("sodate");
-                String sid = rs.getString("s_id");
-                String ibc = rs.getString("i_bc");
-                Timestamp ret = rs.getTimestamp("return_date");
-                System.out.println(so);
-                System.out.println(sid);
-                System.out.println(ibc);
-                System.out.println(ret);
-                //System.out.println(rs.getObject(1));
-        }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\nrip");
-        }
         CardLayout cl = (CardLayout) home.getLayout();
+        tfBarcode.setText("");
         StudentJFrame topFrame = (StudentJFrame) SwingUtilities.getWindowAncestor(this);
         topFrame.ssoc.SOCongratsInit();
         cl.show(home, "SOcongrats");
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfSignoutActionPerformed
+    }//GEN-LAST:event_btnSignoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSignout;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JTextField tfBarcode;
-    private javax.swing.JButton tfSignout;
     // End of variables declaration//GEN-END:variables
 
     /**

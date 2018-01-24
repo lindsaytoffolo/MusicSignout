@@ -29,7 +29,7 @@
                       <EmptySpace min="-2" pref="298" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="tfSignout" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSignout" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="436" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -54,7 +54,7 @@
               <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
               <Component id="tfBarcode" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Component id="tfSignout" min="-2" max="-2" attributes="0"/>
+              <Component id="btnSignout" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="298" max="32767" attributes="0"/>
               <Component id="btnBack" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -89,7 +89,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="tfSignout">
+    <Component class="javax.swing.JButton" name="btnSignout">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="0"/>
@@ -97,7 +97,7 @@
         <Property name="text" type="java.lang.String" value="Sign out"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfSignoutActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignoutActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

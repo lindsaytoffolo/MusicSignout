@@ -98,7 +98,9 @@ private static String fNam, lNam, id;
         System.out.println("CLICKED");
         boolean exists = false;
         int count = 0;
+
         String key = tfBarcode.getText().substring(1,10);  
+
         Connection c = Database.connectDB(); 
         if (c == null) System.exit(-1); 
         System.out.println("Connected!");
@@ -133,7 +135,7 @@ private static String fNam, lNam, id;
             }
             rs.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage()+"\n rip2");
+            JOptionPane.showMessageDialog(this, "Something went wrong and you cannot sign in", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSignInActionPerformed
 

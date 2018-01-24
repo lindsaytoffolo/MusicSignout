@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -56,7 +57,7 @@ public class SSOCongrats extends javax.swing.JPanel {
                 }
                 //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
-            System.out.println(e.getMessage()+"\nrip");
+            JOptionPane.showMessageDialog(this, "Something went wrong", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
