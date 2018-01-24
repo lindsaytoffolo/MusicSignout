@@ -21,8 +21,176 @@ import javax.swing.JPanel;
  */
 public class TRemoveForm extends javax.swing.JPanel {
 
-    JPanel home;
-    String item;
+    /**
+     * @return the home
+     */
+    public JPanel getHome() {
+        return home;
+    }
+
+    /**
+     * @param home the home to set
+     */
+    public void setHome(JPanel home) {
+        this.home = home;
+    }
+
+    /**
+     * @return the item
+     */
+    public String getItem() {
+        return item;
+    }
+
+    /**
+     * @param item the item to set
+     */
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    /**
+     * @return the btnBack
+     */
+    public javax.swing.JButton getBtnBack() {
+        return btnBack;
+    }
+
+    /**
+     * @param btnBack the btnBack to set
+     */
+    public void setBtnBack(javax.swing.JButton btnBack) {
+        this.btnBack = btnBack;
+    }
+
+    /**
+     * @return the btnGet
+     */
+    public javax.swing.JButton getBtnGet() {
+        return btnGet;
+    }
+
+    /**
+     * @param btnGet the btnGet to set
+     */
+    public void setBtnGet(javax.swing.JButton btnGet) {
+        this.btnGet = btnGet;
+    }
+
+    /**
+     * @return the cbItem
+     */
+    public javax.swing.JComboBox getCbItem() {
+        return cbItem;
+    }
+
+    /**
+     * @param cbItem the cbItem to set
+     */
+    public void setCbItem(javax.swing.JComboBox cbItem) {
+        this.cbItem = cbItem;
+    }
+
+    /**
+     * @return the cbObject
+     */
+    public javax.swing.JComboBox getCbObject() {
+        return cbObject;
+    }
+
+    /**
+     * @param cbObject the cbObject to set
+     */
+    public void setCbObject(javax.swing.JComboBox cbObject) {
+        this.cbObject = cbObject;
+    }
+
+    /**
+     * @return the cbType
+     */
+    public javax.swing.JComboBox getCbType() {
+        return cbType;
+    }
+
+    /**
+     * @param cbType the cbType to set
+     */
+    public void setCbType(javax.swing.JComboBox cbType) {
+        this.cbType = cbType;
+    }
+
+    /**
+     * @return the jLabel7
+     */
+    public javax.swing.JLabel getjLabel7() {
+        return jLabel7;
+    }
+
+    /**
+     * @param jLabel7 the jLabel7 to set
+     */
+    public void setjLabel7(javax.swing.JLabel jLabel7) {
+        this.jLabel7 = jLabel7;
+    }
+
+    /**
+     * @return the lblHeader
+     */
+    public javax.swing.JLabel getLblHeader() {
+        return lblHeader;
+    }
+
+    /**
+     * @param lblHeader the lblHeader to set
+     */
+    public void setLblHeader(javax.swing.JLabel lblHeader) {
+        this.lblHeader = lblHeader;
+    }
+
+    /**
+     * @return the lblItem
+     */
+    public javax.swing.JLabel getLblItem() {
+        return lblItem;
+    }
+
+    /**
+     * @param lblItem the lblItem to set
+     */
+    public void setLblItem(javax.swing.JLabel lblItem) {
+        this.lblItem = lblItem;
+    }
+
+    /**
+     * @return the lblObject
+     */
+    public javax.swing.JLabel getLblObject() {
+        return lblObject;
+    }
+
+    /**
+     * @param lblObject the lblObject to set
+     */
+    public void setLblObject(javax.swing.JLabel lblObject) {
+        this.lblObject = lblObject;
+    }
+
+    /**
+     * @return the lblType
+     */
+    public javax.swing.JLabel getLblType() {
+        return lblType;
+    }
+
+    /**
+     * @param lblType the lblType to set
+     */
+    public void setLblType(javax.swing.JLabel lblType) {
+        this.lblType = lblType;
+    }
+
+    private JPanel home;
+    private String item;
 
     /**
      * Creates new form TMenu
@@ -40,14 +208,13 @@ public class TRemoveForm extends javax.swing.JPanel {
         if (c == null) System.exit(-1); 
         Statement stmt; 
         ResultSet rs; 
-        //these try catch statements allow the choices for type, object, and item to appear
+        //these try catch statements allow the choices for type, object, and item to appear in the combo boxes
         try { 
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM type"); 
             while (rs.next()==true) { 
                 type = rs.getString("name");
                 cbType.addItem(type);
-                //System.out.println(rs.getObject(1));
         }
         rs.close();
         } catch (SQLException e) {
@@ -200,22 +367,23 @@ public class TRemoveForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        CardLayout cl = (CardLayout) home.getLayout();
-        cl.show(home, "menu");        
+        CardLayout cl = (CardLayout) getHome().getLayout();
+        cl.show(getHome(), "menu");        
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnGetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetActionPerformed
-        item = (String)cbItem.getSelectedItem();
+        //sets item (to remove) to selected item in combo box
+        setItem((String) getCbItem().getSelectedItem());
         Connection c = Database.connectDB(); 
         if (c == null) 
             System.exit(-1); 
         Statement stmt; 
         boolean act = false;
-        //data types are: int text text boolean
+        //sets selected item to inactive in DB
         try { 
             stmt = c.createStatement();
-            String q = ("UPDATE item SET active = "+act+" WHERE name = '" + item + "' ");
+            String q = ("UPDATE item SET active = "+act+" WHERE name = '" + getItem() + "' ");
             PreparedStatement pstmt = c.prepareStatement(q); {
             pstmt.executeUpdate();
             System.out.println("Booply");

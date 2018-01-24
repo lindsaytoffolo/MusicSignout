@@ -21,8 +21,10 @@ import javax.swing.JPanel;
  * @author Emily Anas
  */
 public class SLogin extends javax.swing.JPanel {
-JPanel home;
-private static String fNam, lNam, id;
+
+    JPanel home;
+    private static String fNam, lNam, id;
+    
     /**
      * Creates new form SLogin
      */
@@ -98,17 +100,16 @@ private static String fNam, lNam, id;
         System.out.println("CLICKED");
         boolean exists = false;
         int count = 0;
-        String key = tfBarcode.getText().substring(1,10);  
+        String key = tfBarcode.getText().substring(1,10);
         Connection c = Database.connectDB(); 
         if (c == null) System.exit(-1); 
         System.out.println("Connected!");
         Statement stmt; 
         ResultSet rs;
-        //int text text boolean
+        //check that student number exists in system
         try { 
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM student"); 
-            // Now do something with the ResultSet .... 
             while(rs.next()==true && exists==false) { 
                 id = rs.getString("id");
                 System.out.println(id+","+key);
@@ -116,7 +117,9 @@ private static String fNam, lNam, id;
                     exists = true;
                 }
         } 
+            //if the student exists in DB
             if(exists==true){
+                //prints out student info
                 System.out.println("student exists in DB");
                 SLogin.fNam = rs.getString("fname");
                 SLogin.lNam = rs.getString("lname");
@@ -127,6 +130,7 @@ private static String fNam, lNam, id;
                 //JOptionPane.showMessageDialog(null,"Welcome "+s.toString()+"!");
                 //JOptionPane.showMessageDialog(null,"Welcome "+lNam+", "+fNam+"!");
             }
+            //if student doesn't exist, gives user message to enter valid student number
             else{
                 JOptionPane.showMessageDialog(null,"Please scan a valid student ID.");
                 tfBarcode.setText("");
