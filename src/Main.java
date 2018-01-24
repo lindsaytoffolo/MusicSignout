@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author 072584980
  */
 public class Main {
-    
+    //this class serves no real purpose, is simply here to have a "main" method
     /**
      * @param args the command line arguments
      */

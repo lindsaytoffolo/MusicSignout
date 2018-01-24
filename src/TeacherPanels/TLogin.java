@@ -15,6 +15,7 @@ import javax.swing.JPanel;
  */
 public class TLogin extends javax.swing.JPanel {
 
+    //password to login, feel free to change (/add ability to change)
     private String password = "music";
     JPanel home;
     
@@ -98,6 +99,7 @@ public class TLogin extends javax.swing.JPanel {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         if (tfPassword.getText().equals(password)) {
+            //if they enter in the correct password, let them in
             tfPassword.setText("");
             CardLayout cl = (CardLayout) home.getLayout();
             cl.show(home, "menu");

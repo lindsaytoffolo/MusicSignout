@@ -15,6 +15,7 @@ import javax.swing.JPanel;
  * @author 072584980
  */
 public class StudentJFrame extends javax.swing.JFrame {
+    //so that the labels can be set to display messages accessing info from other panels
   public SSOCongrats ssoc;
   public SRetCongrats src; 
     /**
@@ -24,6 +25,7 @@ public class StudentJFrame extends javax.swing.JFrame {
         initComponents();
         ssoc = new SSOCongrats(jPanel1);
         src = new SRetCongrats(jPanel1);
+        //start card layout and add all panels
         CardLayout cl = new CardLayout();
         jPanel1.setLayout(cl);
         jPanel1.add(new SLogin(jPanel1), "login");
@@ -32,6 +34,7 @@ public class StudentJFrame extends javax.swing.JFrame {
         jPanel1.add(new SReturn(jPanel1), "return");
         jPanel1.add(ssoc, "SOcongrats");
         jPanel1.add(src, "retcongrats");
+        //begin on login screen
         cl.show(jPanel1, "login");
     }
 

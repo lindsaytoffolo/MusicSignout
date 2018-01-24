@@ -14,8 +14,6 @@ import javax.swing.JPanel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author Emily Anas
@@ -24,13 +22,14 @@ public class SLogin extends javax.swing.JPanel {
 
     JPanel home;
     private static String fNam, lNam, id;
-    
+
     /**
      * Creates new form SLogin
      */
     public SLogin() {
         initComponents();
     }
+
     public SLogin(JPanel p) {
         initComponents();
         home = p;
@@ -99,40 +98,46 @@ public class SLogin extends javax.swing.JPanel {
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         System.out.println("CLICKED");
         boolean exists = false;
-        int count = 0;
-        String key = tfBarcode.getText().substring(1,10);
-        Connection c = Database.connectDB(); 
-        if (c == null) System.exit(-1); 
+        String key = "";
+        //check to make sure barcode is correct length
+        if (tfBarcode.getText().length() == 10) {
+            key = tfBarcode.getText().substring(1, 10);
+        } else {
+            JOptionPane.showMessageDialog(this, "Sorry, this was not the correct length, please try scanning the barcode on your student card", "Inane error", JOptionPane.ERROR_MESSAGE);
+        }
+        Connection c = Database.connectDB();
+        if (c == null) {
+            System.exit(-1);
+        }
         System.out.println("Connected!");
-        Statement stmt; 
+        Statement stmt;
         ResultSet rs;
         //check that student number exists in system
-        try { 
+        try {
             stmt = c.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM student"); 
-            while(rs.next()==true && exists==false) { 
+            rs = stmt.executeQuery("SELECT * FROM student");
+            while (rs.next() == true && exists == false) {
                 id = rs.getString("id");
-                System.out.println(id+","+key);
-                if(key.equals(id)){
+                System.out.println(id + "," + key);
+                if (key.equals(id)) {
                     exists = true;
                 }
-        } 
+            }
             //if the student exists in DB
-            if(exists==true){
+            if (exists == true) {
                 //prints out student info
                 System.out.println("student exists in DB");
                 SLogin.fNam = rs.getString("fname");
                 SLogin.lNam = rs.getString("lname");
-                System.out.println(fNam+" "+lNam);
+                System.out.println(fNam + " " + lNam);
                 tfBarcode.setText("");
                 CardLayout cl = (CardLayout) home.getLayout();
                 cl.show(home, "menu");
                 //JOptionPane.showMessageDialog(null,"Welcome "+s.toString()+"!");
                 //JOptionPane.showMessageDialog(null,"Welcome "+lNam+", "+fNam+"!");
-            }
-            //if student doesn't exist, gives user message to enter valid student number
-            else{
-                JOptionPane.showMessageDialog(null,"Please scan a valid student ID.");
+            } //if student doesn't exist, gives user message to enter valid student number
+            else {
+                JOptionPane.showMessageDialog(null, "Please scan a valid student ID.");
                 tfBarcode.setText("");
             }
             rs.close();
@@ -158,15 +163,15 @@ public class SLogin extends javax.swing.JPanel {
     public static String getfNam() {
         return fNam;
     }
-    
+
     /**
      * @return the lNam
      */
     public static String getlNam() {
         return lNam;
     }
-    
-    public static String getid(){
+
+    public static String getid() {
         return id;
     }
 }

@@ -39,6 +39,7 @@ public class SRetCongrats extends javax.swing.JPanel {
     }
 
     public void RetCongratsInit() {
+        //connect to database
         Connection c = connectDB();
         if (c == null) {
             System.exit(-1);
@@ -46,6 +47,7 @@ public class SRetCongrats extends javax.swing.JPanel {
         Statement stmt;
         ResultSet rs;
         //int text text boolean
+        //by default say something went wrong (in case return doesn't work)(not great coding but I needed a last minute error handle)
         lblItem.setText("");
         lblStudent.setText("..... except you didn't");
         lblRetDate.setText("");
@@ -53,7 +55,9 @@ public class SRetCongrats extends javax.swing.JPanel {
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM history");
             // Now do something with the ResultSet .... 
+            //loop through history table
             while (rs.next() == true) {
+                //find most recent ntry with same student number and item barcode (dates are tricky) and set labels to the correct info
                 if (SLogin.getid().equals(rs.getString("s_id")) && SReturn.getBarcode().equals(rs.getString("i_bc"))) {
                     lblItem.setText("Item Barcode: " + SReturn.getBarcode());
                     lblStudent.setText("Student ID: " + SLogin.getid());
@@ -154,12 +158,13 @@ public class SRetCongrats extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        //if they want to go back to the menu, bring them to the menu
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "menu");
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        //if they want to log out, bring them back to the login screen
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "login");// TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed

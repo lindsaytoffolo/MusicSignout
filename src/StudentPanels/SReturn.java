@@ -136,14 +136,17 @@ public class SReturn extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        //back brings them to menu
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "menu");
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        //get barcode and id the item is being returned under
         barcode = tfBarcode.getText();
         String id = SLogin.getid();
+        
+        //timestamp formatting stuff
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         Date now = new Date(cal.getTimeInMillis());
@@ -151,6 +154,7 @@ public class SReturn extends javax.swing.JPanel {
         sts = new Timestamp(now.getTime());
         Timestamp rts = new Timestamp(0, 0, 0, 0, 0, 0, 0);
 
+        //conect to database
         Connection c = connectDB();
         if (c == null) {
             System.exit(-1);
@@ -158,6 +162,7 @@ public class SReturn extends javax.swing.JPanel {
         Statement stmt;
         try {
             stmt = c.createStatement();
+            //find where return is "null" and student and item match, and fix the return date
             String q = ("UPDATE history SET return_date = '" + getSts() + "' WHERE return_date = '" + rts + "' AND s_id = '" + id + "' AND i_bc = '" + getBarcode() + "'");
             PreparedStatement pstmt = c.prepareStatement(q);
             {
@@ -166,6 +171,7 @@ public class SReturn extends javax.swing.JPanel {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Something went wrong trying to return an item", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
+        //bring them to the confirmation screen
         CardLayout cl = (CardLayout) home.getLayout();
         StudentJFrame topFrame = (StudentJFrame) SwingUtilities.getWindowAncestor(this);
         topFrame.src.RetCongratsInit();

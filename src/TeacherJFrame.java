@@ -19,6 +19,7 @@ public class TeacherJFrame extends javax.swing.JFrame {
      */
     public TeacherJFrame() {
         initComponents();
+        //start card layout and add all panels
         CardLayout cl = new CardLayout();
         jPanel1.setLayout(cl);
         jPanel1.add(new TLogin(jPanel1), "login");
@@ -31,6 +32,7 @@ public class TeacherJFrame extends javax.swing.JFrame {
         jPanel1.add(new TRemoveForm(jPanel1), "removeItem");
         jPanel1.add(new TStudentHistory(jPanel1), "studHist");
         jPanel1.add(new TAddStudents(jPanel1), "addStuds");
+        //start off at login screen
         cl.show(jPanel1, "login");        
     }
 

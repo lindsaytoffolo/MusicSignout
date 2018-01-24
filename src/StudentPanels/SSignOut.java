@@ -133,29 +133,34 @@ public class SSignOut extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        //bring them back to the menu if they want
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "menu");
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignoutActionPerformed
+        //get barcode and id the item is being returned under
         barcode = tfBarcode.getText();
         String id = SLogin.getid();
+
+        //timestamp formatting stuff
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         Date now = new Date(cal.getTimeInMillis());
         sodate = df.format(cal.getTime());
         sts = new Timestamp(now.getTime());
+        //"null" timestamp
         Timestamp rts = new Timestamp(0, 0, 0, 0, 0, 0, 0);
 
+        //connect to database
         Connection c = Database.connectDB();
         if (c == null) {
             System.exit(-1);
         }
         Statement stmt;
-        //data types are: int text text boolean
         try {
             stmt = c.createStatement();
+            //add signout details to database
             String q = "insert into history(sodate,s_id,i_bc,return_date) values(?,?,?,?)";
             PreparedStatement pstmt = c.prepareStatement(q);
             {
@@ -169,6 +174,7 @@ public class SSignOut extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Something went wrong trying to sign out an item", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
 
+        //bring them to confirmation screen
         CardLayout cl = (CardLayout) home.getLayout();
         tfBarcode.setText("");
         StudentJFrame topFrame = (StudentJFrame) SwingUtilities.getWindowAncestor(this);

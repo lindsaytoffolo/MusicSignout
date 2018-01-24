@@ -39,15 +39,15 @@ public class SSOCongrats extends javax.swing.JPanel {
     }
     
     public void SOCongratsInit(){
+        //connect to database
         Connection c = connectDB(); 
         if (c == null) System.exit(-1); 
         Statement stmt; 
         ResultSet rs; 
-            //int text text boolean
         try { 
             stmt = c.createStatement();
             rs = stmt.executeQuery("SELECT * FROM history"); 
-            // Now do something with the ResultSet .... 
+            //print confirmation details of the sign out 
             while (rs.next()==true) { 
                 if(SLogin.getid().equals(rs.getString("s_id")) && SSignOut.getBarcode().equals(rs.getString("i_bc"))){
                     lblItem.setText("Item Barcode: " + SSignOut.getBarcode());
@@ -55,7 +55,6 @@ public class SSOCongrats extends javax.swing.JPanel {
                     lblStudent.setText("Student ID: " + SLogin.getid());
                     return;
                 }
-                //System.out.println(rs.getObject(1));
         }} catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Something went wrong", "Inane error", JOptionPane.ERROR_MESSAGE);
         }
@@ -147,15 +146,16 @@ public class SSOCongrats extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //let them go where they want
+    
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "menu");
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnMenuActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         CardLayout cl = (CardLayout) home.getLayout();
-        cl.show(home, "login");// TODO add your handling code here:
+        cl.show(home, "login");
     }//GEN-LAST:event_btnLogoutActionPerformed
 
 

@@ -141,25 +141,25 @@ public class TMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //bring them where they want to go
+    
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "login");
-// TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemActionPerformed
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "addItem");
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnAddItemActionPerformed
 
     private void btnRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemActionPerformed
         CardLayout cl = (CardLayout) home.getLayout();
         cl.show(home, "removeItem");
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoveItemActionPerformed
 
     private void btnViewHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewHistoryActionPerformed
+        //check combo box to see where they want to go and bring them there
         if (cbHistory.getSelectedItem().equals("By Most Recent")) {
             CardLayout cl = (CardLayout) home.getLayout();
             cl.show(home, "dateHist");
@@ -170,7 +170,6 @@ public class TMenu extends javax.swing.JPanel {
             CardLayout cl = (CardLayout) home.getLayout();
             cl.show(home, "pickItem");
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnViewHistoryActionPerformed
 
     private void btnAddStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentsActionPerformed

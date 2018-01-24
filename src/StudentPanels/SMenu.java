@@ -13,6 +13,7 @@ import javax.swing.JPanel;
  * @author Emily Anas
  */
 public class SMenu extends javax.swing.JPanel {
+//everything has a "home" so it can be connected to the card layout (will only comment here)
 
     JPanel home;
 
@@ -27,6 +28,7 @@ public class SMenu extends javax.swing.JPanel {
         initComponents();
         home = p;
         System.out.println(SLogin.getfNam());
+        //will welcome student - error communicating between panels
         String welcomeMessage = "Welcome " + SLogin.getfNam() + " " + SLogin.getlNam();
         lblWelcome.setText(welcomeMessage);
     }
@@ -108,21 +110,21 @@ public class SMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        //if you log out, go back to login screen
         CardLayout cl = (CardLayout) home.getLayout();
-        cl.show(home, "login");        
-        // TODO add your handling code here:
+        cl.show(home, "login");
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnSignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignoutActionPerformed
+        //if you try to sign out an item, bring you to that screen
         CardLayout cl = (CardLayout) home.getLayout();
-        cl.show(home, "signout");        
-        // TODO add your handling code here:
+        cl.show(home, "signout");
     }//GEN-LAST:event_btnSignoutActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-       CardLayout cl = (CardLayout) home.getLayout();
-        cl.show(home, "return");        
-        // TODO add your handling code here:
+        //if you try to return an item, bring you to the correct screen
+        CardLayout cl = (CardLayout) home.getLayout();
+        cl.show(home, "return");
     }//GEN-LAST:event_btnReturnActionPerformed
 
 
